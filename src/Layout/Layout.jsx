@@ -1,4 +1,5 @@
 import React from 'react';
+import BurgerMenu from '../components/BurgerMenu/BurgerMenu';
 import classes from './Layout.module.scss';
 
 class Layout extends React.PureComponent {
@@ -10,6 +11,8 @@ class Layout extends React.PureComponent {
         return (
             <div className={classes.container}>
                 <header>
+                    <BurgerMenu />
+
                     <h1>Time Manager</h1>
                 </header>
                 <main>Hi</main>
