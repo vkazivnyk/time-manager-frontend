@@ -9,12 +9,21 @@ class BurgerMenu extends React.PureComponent {
     render() {
         return (
             <div className={classes.container}>
+                <input type="checkbox" id="burger" />
                 <label for="burger" className={classes.burgerIcon}>
                     <span></span>
                     <span></span>
                     <span></span>
                 </label>
-                <input id="burger" />
+                <nav>
+                    <ul>
+                        <li>Link1</li>
+                        <li>Link2</li>
+                        <li>Link3</li>
+                        <li>Link4</li>
+                        <li>Link5</li>
+                    </ul>
+                </nav>
             </div>
         );
     }
