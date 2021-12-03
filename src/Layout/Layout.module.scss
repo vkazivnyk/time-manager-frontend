@@ -1,0 +1,28 @@
+@import '../global/scss/global.scss';
+
+.container {
+    color: $main-color-dark;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    background-color: $second-color;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.burger-icon {
+    padding: 10px;
+    margin: 5px;
+    display: none;
+}
+
+.burger-icon span {
+    width: 30px;
+    height: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: $main-color-dark;
+}

@@ -1,3 +1,9 @@
+@import './global/scss/global.scss';
+
 * {
     margin: 0;
+}
+
+:root {
+    background-color: $main-color;
 }
