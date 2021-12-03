@@ -21,6 +21,7 @@
         }
     },
     "rules": {
+        "at-rule-no-unknown": 0,
         "sonarjs/cognitive-complexity": ["error", 15],
         "indent": ["error", 4],
         "max-len": ["error", 80, { "ignoreRegExpLiterals": true }],
