@@ -34,32 +34,25 @@ export default class AuthPage extends Component {
         const { email, password, isLoading } = this.state;
 
         return (
-            <div className={Style.Wrapper}>
-                <AuthBox
-                    onClick={this.onClickHandler}
-                    children={
-                        <>
-                            <Input
-                                label="Enter an email"
-                                value={email}
-                                type="text"
-                                id="email"
-                                name="email"
-                                onChange={this.handleInputChange}
-                            />
-                            <Input
-                                label="Enter a password"
-                                value={password}
-                                type="text"
-                                id="password"
-                                name="password"
-                                onChange={this.handleInputChange}
-                            />
-                            <Button onClick={this.onClickHandler} />
-                        </>
-                    }
+            <AuthBox onClick={this.onClickHandler}>
+                <Input
+                    label="Enter an email"
+                    value={email}
+                    type="text"
+                    id="email"
+                    name="email"
+                    onChange={this.handleInputChange}
                 />
-            </div>
+                <Input
+                    label="Enter a password"
+                    value={password}
+                    type="text"
+                    id="password"
+                    name="password"
+                    onChange={this.handleInputChange}
+                />
+                <Button onClick={this.onClickHandler}>Submit</Button>
+            </AuthBox>
         );
     }
 }
