@@ -63,28 +63,28 @@ const Task = props => {
             <div className={Style.TaskItemsContainer}>
                 <div className={Style.TaskInfoContainer}>
                     <div className={Style.ImportanceWrapper}>
-                        Importance:
+                        <span>Importance:</span>
                         <span className={Style.Importance}>
                             {importanceValue}
                         </span>
                     </div>
                     <div className={Style.DifficultyWrapper}>
-                        Difficulty:
+                        <span>Difficulty:</span>
                         <span className={Style.Difficulty}>
                             {difficultyValue}
                         </span>
                     </div>
                     <div className={Style.DeadlineWrapper}>
-                        Deadline:
+                        <span>Deadline:</span>
                         <span className={Style.Deadline}>{deadlineFormat}</span>
                     </div>
                 </div>
                 <div className={Style.ButtonsContainer}>
                     <button type="button" onClick={onPutTask}>
-                        <FaPen />
+                        <FaPen className={Style.Put} />
                     </button>
                     <button type="button" onClick={onDeleteTask}>
-                        <FaTimes />
+                        <FaTimes className={Style.Delete} />
                     </button>
                 </div>
             </div>
