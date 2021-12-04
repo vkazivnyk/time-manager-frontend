@@ -7,6 +7,8 @@ import axiosRESTInstance from '../../global/js/axiosRESTInstance';
 import { credentials } from '../../global/js/credentials';
 import { authToken } from '../../global/js/authToken';
 import Style from './AuthPage.module.scss';
+import Backdrop from '../../components/Backdrop/Backdrop';
+import Spinner from '../../components/Spinner/Spinner';
 import { Popup } from '../../components/Popup/Popup';
 
 export default class AuthPage extends Component {
@@ -21,7 +23,9 @@ export default class AuthPage extends Component {
     }
 
     onClickHandler = () => {
-        const { userName, password, isLoading } = this.state;
+        const { userName, password } = this.state;
+
+        const { onLogin } = this.props;
 
         this.setState({
             isLoading: true,
@@ -41,6 +45,8 @@ export default class AuthPage extends Component {
 
                 credentials.set(userName, email);
                 authToken.set(token);
+
+                onLogin();
             })
             .catch(err => {
                 this.setState({
@@ -60,6 +66,12 @@ export default class AuthPage extends Component {
 
     render() {
         const { userName, password, isLoading, errors } = this.state;
+
+        const spinner = isLoading ? (
+            <Backdrop>
+                <Spinner />
+            </Backdrop>
+        ) : null;
 
         return (
             <AuthBox onClick={this.onClickHandler}>
@@ -90,16 +102,6 @@ export default class AuthPage extends Component {
                         Register
                     </Link>
                 </div>
-                {errors.length ? (
-                    <Popup
-                        onDismiss={() => {
-                            this.setState({ errors: [] });
-                        }}>
-                        {errors.map(element => (
-                            <p>{element.message}</p>
-                        ))}
-                    </Popup>
-                ) : null}
             </AuthBox>
         );
     }
