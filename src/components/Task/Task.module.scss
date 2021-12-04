@@ -1,3 +1,48 @@
-* {
-    margin: 0;
+@import '../../global/scss/global.scss';
+
+.Wrapper {
+    margin-left: 10rem;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    min-height: 10rem;
+    max-height: 10rem;
+    border: 2px solid;
+    border-radius: 10px;
+    background-color: $task-color;
+    .TaskWrapper {
+        width: 80%;
+        height: 60%;
+    }
+
+    .DateWrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .StartDateWrapper {
+            min-width: 50%;
+        }
+
+        .EndDateWrapper {
+            min-width: 50%;
+        }
+    }
+
+    button {
+        width: 20%;
+        color: $text-color;
+        height: 10rem;
+        right: 0px;
+        border-radius: 10px;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        background-color: $task-color;
+        &:hover {
+            background-color: $task-hover-color;
+        }
+    }
 }

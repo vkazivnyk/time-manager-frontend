@@ -22,9 +22,10 @@
     },
     "rules": {
         "at-rule-no-unknown": 0,
+        "sh-waqar/declaration-use-variable": 0,
         "sonarjs/cognitive-complexity": ["error", 15],
         "indent": ["error", 4],
-        "max-len": ["error", 80, { "ignoreRegExpLiterals": true }],
+        "max-len": ["error", 90, { "ignoreRegExpLiterals": true }],
         "no-extra-parens": ["error", "all", { "ignoreJSX": "multi-line" }],
         "react/prop-types": 0,
         "react/destructuring-assignment": [2, "always"],
