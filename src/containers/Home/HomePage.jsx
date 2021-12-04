@@ -270,6 +270,7 @@ export default class HomePage extends Component {
             newTaskName,
             newTaskImportance,
             newTaskDeadline,
+            editedTask,
         } = this.state;
 
         const addPopup = isTaskAdding ? (
@@ -282,16 +283,9 @@ export default class HomePage extends Component {
                     name="newTaskName"
                     onChange={this.handleTaskInputChange}
                 />
-                <Input
-                    label="Enter a deadline"
-                    value={newTaskDeadline}
-                    type="text"
-                    id="newTaskDeadline"
-                    name="newTaskDeadline"
-                    onChange={this.handleTaskInputChange}
-                />
+                <div className={Style.deadlineWrapper}> Enter deadline</div>
+                <DateTimePicker />
                 <div className={Style.select}>
-                    <DateTimePicker />
                     <Select
                         options={this.importanceOptions}
                         defaultValue={this.importanceOptions[0]}
@@ -318,19 +312,14 @@ export default class HomePage extends Component {
                 <Input
                     label="Enter a task name"
                     value={newTaskName}
+                    placeholder="New task message"
                     type="text"
                     id="newTaskName"
                     name="newTaskName"
                     onChange={this.handleTaskInputChange}
                 />
-                <Input
-                    label="Enter a deadline"
-                    value={newTaskDeadline}
-                    type="text"
-                    id="newTaskDeadline"
-                    name="newTaskDeadline"
-                    onChange={this.handleTaskInputChange}
-                />
+                <div className={Style.deadlineWrapper}> Enter deadline</div>
+                <DateTimePicker />
                 <div className={Style.select}>
                     <Select
                         options={this.importanceOptions}

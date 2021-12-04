@@ -18,32 +18,15 @@ export default function MaterialUIPickers() {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Stack spacing={3}>
-                <DesktopDatePicker
-                    label="Date desktop"
-                    inputFormat="MM/dd/yyyy"
-                    value={value}
-                    onChange={handleChange}
-                    renderInput={params => <TextField {...params} />}
-                />
-                <MobileDatePicker
-                    label="Date mobile"
-                    inputFormat="MM/dd/yyyy"
-                    value={value}
-                    onChange={handleChange}
-                    renderInput={params => <TextField {...params} />}
-                />
-                <TimePicker
-                    label="Time"
-                    value={value}
-                    onChange={handleChange}
-                    renderInput={params => <TextField {...params} />}
-                />
                 <DateTimePicker
                     value={value}
                     onChange={handleChange}
                     renderInput={params => (
                         <TextField
-                            style={{ backgroundColor: 'white' }}
+                            style={{
+                                backgroundColor: 'white',
+                                marginBottom: '5px',
+                            }}
                             {...params}
                         />
                     )}
