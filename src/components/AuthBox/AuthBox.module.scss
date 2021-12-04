@@ -1,0 +1,12 @@
+@import '../../global/scss/global.scss';
+
+.Wrapper {
+    min-width: 30rem;
+    max-width: 35rem;
+    min-height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: $task-color;
+}
