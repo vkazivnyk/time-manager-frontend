@@ -10,7 +10,7 @@ class BurgerMenu extends React.Component {
         return (
             <div className={classes.container}>
                 <input type="checkbox" id="burger" />
-                <label for="burger" className={classes.burgerIcon}>
+                <label htmlFor="burger" className={classes.burgerIcon}>
                     <span></span>
                     <span></span>
                     <span></span>

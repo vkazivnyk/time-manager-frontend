@@ -1,9 +1,6 @@
 @import '../../global/scss/global.scss';
 
 .react-calendar {
-    position: fixed;
-    right: 2rem;
-    top: 10rem;
     background-color: $calendar-background-color;
     box-shadow: 0 4px 5px 0 $calendar-shadow-color;
 }

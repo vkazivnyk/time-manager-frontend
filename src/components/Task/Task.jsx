@@ -1,48 +1,59 @@
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
+import { FaPen, FaTimes } from 'react-icons/fa';
+
 import Style from './Task.module.scss';
 
-let borderColor = '';
+dayjs.extend(duration);
+dayjs.extend(relativeTime);
 
-const selectBorderColor = difficulty => {
-    if (difficulty === 0) {
-        borderColor = '';
+const Task = props => {
+    const { task, onClickEdit, onClickDelete } = props;
+
+    const { id, name, deadline, totalSeconds, difficulty } = task;
+
+    let difficultyClass = Style.Easy;
+
+    if (difficulty === 1) {
+        difficultyClass = Style.Medium;
     }
-};
 
-const Todo = props => {
-    const { children, onClickEdit, onClickDelete } = props;
-    const difficulty = 0;
-    const startDate = '21.21.2020';
-    const endDate = '22.22.2222';
-    selectBorderColor(difficulty);
+    if (difficulty === 2) {
+        difficultyClass = Style.Hard;
+    }
+
+    const takesFormat = dayjs.duration(totalSeconds, 'seconds').humanize();
+    const deadlineFormat = dayjs(deadline).format('DD/MM/YY');
 
     return (
-        <div
-            className={Style.Wrapper}
-            style={{ borderColor: `${borderColor}` }}>
-            <div className={Style.TaskWrapper}>
-                {children}
-                <div className={Style.DateWrapper}>
-                    <div className={Style.StartDateWrapper}>
-                        {'startDate:'}
-                        <br />
-                        {startDate}
+        <div className={`${Style.TaskWrapper} ${difficultyClass}`}>
+            <h2 className={Style.TaskName}>{name}</h2>
+            <div className={Style.TaskItemsContainer}>
+                <div className={Style.TaskInfoContainer}>
+                    <div className={Style.TotalSecondsWrapper}>
+                        Takes:
+                        <span className={Style.TotalSeconds}>
+                            {takesFormat}
+                        </span>
                     </div>
-                    <div className={Style.EndDateWrapper}>
-                        {'endDate:'}
-                        <br />
-                        {endDate}
+                    <div className={Style.DeadlineWrapper}>
+                        Deadline:
+                        <span className={Style.Deadline}>{deadlineFormat}</span>
                     </div>
                 </div>
+                <div className={Style.ButtonsContainer}>
+                    <button type="button" onClick={onClickEdit}>
+                        <FaPen />
+                    </button>
+                    <button type="button" onClick={onClickDelete}>
+                        <FaTimes />
+                    </button>
+                </div>
             </div>
-            <button type="button" onClick={onClickEdit}>
-                &#9998;
-            </button>
-            <button type="button" onClick={onClickDelete}>
-                &#10006;
-            </button>
         </div>
     );
 };
 
-export default Todo;
+export default Task;
