@@ -11,6 +11,8 @@ class Layout extends React.Component {
         this.state = {};
     }
     render() {
+        const { children } = this.props;
+
         return (
             <div className={classes.container}>
                 <header>
@@ -19,15 +21,7 @@ class Layout extends React.Component {
                     <Button>Log in</Button>
                     <Button>Sign up</Button>
                 </header>
-                <main>
-                    <Task children="hello oleg" />
-                    <Task />
-                    <Task />
-                    <Task />
-                    <Task />
-                    <Task />
-                    <CalendarComponent />
-                </main>
+                <main>{children}</main>
             </div>
         );
     }

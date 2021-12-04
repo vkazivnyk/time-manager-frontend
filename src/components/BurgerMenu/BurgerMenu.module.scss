@@ -1,6 +1,6 @@
 @import '../../global/scss/global.scss';
 
-input {
+input[type='checkbox'] {
     display: none;
 }
 
@@ -25,7 +25,7 @@ nav {
         margin: 0;
         padding: 0;
         li {
-            color: $main-color-dark;
+            color: $main-text-color;
             min-width: 6rem;
             text-align: center;
             display: inline-block;
@@ -46,7 +46,7 @@ nav {
         height: 0.3rem;
         margin-bottom: 0.3rem;
         border-radius: 0.3rem;
-        background-color: $main-color-dark;
+        background-color: $main-text-color;
     }
 }
 

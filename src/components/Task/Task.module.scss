@@ -1,50 +1,72 @@
 @import '../../global/scss/global.scss';
 
-.Wrapper {
-    margin-left: 10rem;
-    width: 50%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    margin-top: 1rem;
-    min-height: 7rem;
-    max-height: 7rem;
-    border: 2px solid;
+.TaskWrapper {
+    color: $main-text-color;
+    margin: 1rem 0;
+    border: 2px solid $task-color;
     border-radius: 10px;
     background-color: $task-color;
-    .TaskWrapper {
-        width: 80%;
-        height: 70%;
+
+    .TaskName {
+        text-align: center;
+        margin: 1rem 0;
     }
 
-    .DateWrapper {
+    .TaskItemsContainer {
+        align-items: center;
+        justify-content: space-between;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        .StartDateWrapper {
-            min-width: 50%;
-            margin-top: 1rem;
-        }
-
-        .EndDateWrapper {
-            min-width: 50%;
-            margin-top: 1rem;
-        }
+        width: 90%;
+        margin: auto;
     }
 
     button {
-        width: 10%;
-        color: $text-color;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
+        font-size: 1rem;
+        line-height: 4rem;
         right: 0px;
-        border-radius: 10px;
+        border-radius: 50%;
         background-repeat: no-repeat;
         border: none;
+        color: inherit;
         cursor: pointer;
         background-color: $task-color;
+        transition: 0.2s;
         &:hover {
             background-color: $task-hover-color;
+        }
+    }
+
+    &.Easy {
+        border-color: $easy-color;
+    }
+
+    &.Medium {
+        border-color: $medium-color;
+    }
+
+    &.Hard {
+        border-color: $hard-color;
+    }
+}
+
+.TaskInfoContainer {
+    width: 45%;
+    font-size: 1.2rem;
+
+    .TotalSecondsWrapper {
+        .TotalSeconds {
+            font-weight: bold;
+            margin: 0 1rem;
+        }
+    }
+
+    .DeadlineWrapper {
+        .Deadline {
+            font-weight: bold;
+            margin-left: 1rem;
         }
     }
 }

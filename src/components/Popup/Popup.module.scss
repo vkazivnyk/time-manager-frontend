@@ -1,0 +1,13 @@
+@import '../../global/scss/global.scss';
+
+.Popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $main-color-bright;
+    z-index: 100;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+}
