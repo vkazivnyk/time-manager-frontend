@@ -1,7 +1,6 @@
 import React from 'react';
 import BurgerMenu from '../components/BurgerMenu/BurgerMenu';
 import classes from './Layout.module.scss';
-import { Link } from 'react-router-dom';
 
 class Layout extends React.Component {
     constructor(props) {

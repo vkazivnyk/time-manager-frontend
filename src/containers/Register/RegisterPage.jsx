@@ -23,8 +23,7 @@ export default class RegisterPage extends Component {
     }
 
     onClickHandler = () => {
-        const { email, username, password, passwordConfirm, isLoading } =
-            this.state;
+        const { email, username, password, passwordConfirm } = this.state;
 
         const { onLogin } = this.props;
 
