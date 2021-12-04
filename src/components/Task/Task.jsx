@@ -10,8 +10,7 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
 const Task = props => {
-    const { task, onPutTask, onDeleteTask } = props;
-
+    const { task, priorityEvaluation, onPutTask, onDeleteTask } = props;
     const { name, deadline, importance, difficulty } = task;
 
     const expiredClass = dayjs(task.deadline) < dayjs() ? Style.Expired : null;
@@ -59,6 +58,9 @@ const Task = props => {
             className={`${Style.TaskWrapper} ${expiredClass}`}
             data-importance={importance}
             data-difficulty={difficulty}>
+            <div className={Style.PriorityEvaluationWrapper}>
+                Priority: {priorityEvaluation}
+            </div>
             <h2 className={Style.TaskName}>{name}</h2>
             <div className={Style.TaskItemsContainer}>
                 <div className={Style.TaskInfoContainer}>
