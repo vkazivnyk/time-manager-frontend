@@ -1,3 +1,62 @@
+@import '../../global/scss/global.scss';
+
+input {
+    display: none;
+}
+
 .container {
-    margin: 0;
+    position: absolute;
+}
+
+nav {
+    position: fixed;
+    width: 15rem;
+    background-color: $nav-color;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    padding-top: 4rem;
+    transform: translateX(-100%);
+    ul {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li {
+            color: $main-color-dark;
+            min-width: 6rem;
+            text-align: center;
+            display: inline-block;
+            padding: 1rem;
+            text-decoration: none;
+        }
+    }
+}
+
+.burgerIcon {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 4;
+    span {
+        width: 1.8rem;
+        height: 0.3rem;
+        margin-bottom: 0.3rem;
+        border-radius: 0.3rem;
+        background-color: $main-color-dark;
+    }
+}
+
+input:checked ~ {
+    .burgerIcon {
+        position: fixed;
+    }
+
+    nav {
+        transition: transform 1s;
+        transform: translateX(0%);
+    }
 }

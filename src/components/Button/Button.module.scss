@@ -1,0 +1,14 @@
+@import '../../global/scss/global.scss';
+
+.myButton {
+    font-size: 1rem;
+    display: block;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: $main-color-dark;
+}
