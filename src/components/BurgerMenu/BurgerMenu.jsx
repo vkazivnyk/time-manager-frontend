@@ -14,7 +14,6 @@ class BurgerMenu extends React.PureComponent {
                     <span></span>
                     <span></span>
                 </label>
-                <input id="burger" />
             </div>
         );
     }
