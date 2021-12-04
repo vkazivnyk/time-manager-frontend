@@ -195,7 +195,8 @@ export default class HomePage extends Component {
                     allTasks: [...allTasks],
                     isLoading: false,
                 });
-            });
+            })
+            .catch(error => console.dir({ error }));
     };
 
     onPutTask = element => {
@@ -253,6 +254,10 @@ export default class HomePage extends Component {
             });
     };
 
+    handleErrors = error => {
+        console.log(error);
+    };
+
     render() {
         const {
             tasks,
@@ -284,13 +289,15 @@ export default class HomePage extends Component {
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
                 />
-                <Select
-                    options={this.importanceOptions}
-                    defaultValue={this.importanceOptions[0]}
-                    onChange={e =>
-                        this.setState({ newTaskImportance: e.value })
-                    }
-                />
+                <div className={Style.select}>
+                    <Select
+                        options={this.importanceOptions}
+                        defaultValue={this.importanceOptions[0]}
+                        onChange={e =>
+                            this.setState({ newTaskImportance: e.value })
+                        }
+                    />
+                </div>
                 <Select
                     options={this.difficultyOptions}
                     defaultValue={this.difficultyOptions[0]}
@@ -322,13 +329,15 @@ export default class HomePage extends Component {
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
                 />
-                <Select
-                    options={this.importanceOptions}
-                    defaultValue={this.importanceOptions[0]}
-                    onChange={e =>
-                        this.setState({ newTaskImportance: e.value })
-                    }
-                />
+                <div className={Style.select}>
+                    <Select
+                        options={this.importanceOptions}
+                        defaultValue={this.importanceOptions[0]}
+                        onChange={e =>
+                            this.setState({ newTaskImportance: e.value })
+                        }
+                    />
+                </div>
                 <Select
                     options={this.difficultyOptions}
                     defaultValue={this.difficultyOptions[0]}
@@ -368,6 +377,16 @@ export default class HomePage extends Component {
                     <Backdrop>
                         <Spinner />
                     </Backdrop>
+                ) : null}
+                {errors.length ? (
+                    <Popup
+                        onDismiss={() => {
+                            this.setState({ errors: [] });
+                        }}>
+                        {errors.map(element => (
+                            <p>{element.message}</p>
+                        ))}
+                    </Popup>
                 ) : null}
             </>
         );
