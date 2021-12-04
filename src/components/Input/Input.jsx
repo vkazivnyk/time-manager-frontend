@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './Input.module.scss';
 
 export const Input = ({ label, name, ...otherProps }) => {
-    console.log();
+    console.log(otherProps);
     return (
         <>
             <div className={classes.InputWrapper}>

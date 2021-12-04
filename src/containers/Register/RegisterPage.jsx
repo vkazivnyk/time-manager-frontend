@@ -3,14 +3,16 @@ import AuthBox from '../../components/AuthBox/AuthBox';
 import Button from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
 import { Link } from 'react-router-dom';
-import Style from './AuthPage.module.scss';
+import Style from './RegisterPage.module.scss';
 
-export default class AuthPage extends Component {
+export default class RegisterPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
             password: '',
+            repeatPassword: '',
+            username: '',
             isLoading: false,
         };
     }
@@ -44,10 +46,28 @@ export default class AuthPage extends Component {
                     name="email"
                     onChange={this.handleInputChange}
                 />
+                <div className={Style.passwordContainer}>
+                    <Input
+                        label="Create a password"
+                        value={password}
+                        type="password"
+                        id="password"
+                        name="password"
+                        onChange={this.handleInputChange}
+                    />
+                    <Input
+                        label="Confirm a password"
+                        value={password}
+                        type="password"
+                        id="password"
+                        name="password"
+                        onChange={this.handleInputChange}
+                    />
+                </div>
                 <Input
-                    label="Enter a password"
+                    label="Create an username"
                     value={password}
-                    type="password"
+                    type="text"
                     id="password"
                     name="password"
                     onChange={this.handleInputChange}
@@ -55,12 +75,12 @@ export default class AuthPage extends Component {
                 <Button onClick={this.onClickHandler}>Submit</Button>
                 <div className={Style.linkWrapper}>
                     <Link
-                        to="/register"
+                        to="/auth"
                         style={{
                             textDecoration: 'none',
                             color: '#dddddd',
                         }}>
-                        Register
+                        Log in
                     </Link>
                 </div>
             </AuthBox>
