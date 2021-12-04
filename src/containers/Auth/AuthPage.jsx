@@ -3,6 +3,9 @@ import AuthBox from '../../components/AuthBox/AuthBox';
 import Button from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
 import { Link } from 'react-router-dom';
+import axiosRESTInstance from '../../global/js/axiosRESTInstance';
+import { credentials } from '../../global/js/credentials';
+import { authToken } from '../../global/js/authToken';
 import Style from './AuthPage.module.scss';
 
 export default class AuthPage extends Component {
@@ -12,15 +15,38 @@ export default class AuthPage extends Component {
             email: '',
             password: '',
             isLoading: false,
+            errors: [],
         };
     }
 
     onClickHandler = () => {
-        const { isLoading } = this.state;
+        const { email, password, isLoading } = this.state;
 
         this.setState({
-            isLoading: !isLoading,
+            isLoading: true,
         });
+
+        axiosRESTInstance
+            .post('/auth/login', {
+                email,
+                password,
+            })
+            .then(res => {
+                const { token, username, email } = res.data;
+
+                this.setState({
+                    isLoading: false,
+                });
+
+                credentials.set(username, email);
+                authToken.set(token);
+            })
+            .catch(err => {
+                this.setState({
+                    isLoading: false,
+                    errors: err.response.data.errors,
+                });
+            });
     };
 
     handleInputChange = e => {
