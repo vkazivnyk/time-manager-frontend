@@ -11,6 +11,7 @@ import Tasks from '../Tasks/Tasks';
 import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
+import Message from '../../components/Message/Message';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -138,7 +139,8 @@ export default class HomePage extends Component {
                     tasks: [...tasks],
                     isLoading: false,
                 });
-            });
+            })
+            .catch(error => console.dir({ error }));
     };
 
     onPutTask = element => {
@@ -194,6 +196,10 @@ export default class HomePage extends Component {
                     isLoading: false,
                 });
             });
+    };
+
+    handleErrors = error => {
+        console.log(error);
     };
 
     render() {
@@ -308,6 +314,16 @@ export default class HomePage extends Component {
                     <Backdrop>
                         <Spinner />
                     </Backdrop>
+                ) : null}
+                {errors.length ? (
+                    <Popup
+                        onDismiss={() => {
+                            this.setState({ errors: [] });
+                        }}>
+                        {errors.map(element => (
+                            <p>{element.message}</p>
+                        ))}
+                    </Popup>
                 ) : null}
             </>
         );
