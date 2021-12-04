@@ -18,7 +18,6 @@ const Task = props => {
 
     let difficultyClass = Style.Easier;
 
-
     if (difficulty === 1) {
         difficultyClass = Style.Easy;
     }

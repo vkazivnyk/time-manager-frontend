@@ -289,13 +289,15 @@ export default class HomePage extends Component {
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
                 />
-                <Select
-                    options={this.importanceOptions}
-                    defaultValue={this.importanceOptions[0]}
-                    onChange={e =>
-                        this.setState({ newTaskImportance: e.value })
-                    }
-                />
+                <div className={Style.select}>
+                    <Select
+                        options={this.importanceOptions}
+                        defaultValue={this.importanceOptions[0]}
+                        onChange={e =>
+                            this.setState({ newTaskImportance: e.value })
+                        }
+                    />
+                </div>
                 <Select
                     options={this.difficultyOptions}
                     defaultValue={this.difficultyOptions[0]}
@@ -327,13 +329,15 @@ export default class HomePage extends Component {
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
                 />
-                <Select
-                    options={this.importanceOptions}
-                    defaultValue={this.importanceOptions[0]}
-                    onChange={e =>
-                        this.setState({ newTaskImportance: e.value })
-                    }
-                />
+                <div className={Style.select}>
+                    <Select
+                        options={this.importanceOptions}
+                        defaultValue={this.importanceOptions[0]}
+                        onChange={e =>
+                            this.setState({ newTaskImportance: e.value })
+                        }
+                    />
+                </div>
                 <Select
                     options={this.difficultyOptions}
                     defaultValue={this.difficultyOptions[0]}
