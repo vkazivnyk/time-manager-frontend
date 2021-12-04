@@ -29,6 +29,11 @@
         "no-extra-parens": ["error", "all", { "ignoreJSX": "all" }],
         "react/prop-types": 0,
         "react/destructuring-assignment": [2, "always"],
-        "import/no-unresolved": [0, { "caseSensitive": false }]
+        "import/no-unresolved": [0, { "caseSensitive": false }],
+        "operator-linebreak": [
+            "error",
+            "after",
+            { "overrides": { "?": "before", ":": "before" } }
+        ]
     }
 }

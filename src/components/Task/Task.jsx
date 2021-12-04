@@ -1,14 +1,18 @@
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import React from 'react';
 import { FaPen, FaTimes } from 'react-icons/fa';
 
 import Style from './Task.module.scss';
 
+dayjs.extend(duration);
+dayjs.extend(relativeTime);
+
 const Task = props => {
-    const { onClickEdit, onClickDelete } = props;
-    const difficulty = Math.floor(Math.random() * 3);
-    const totalSeconds = 1000;
-    const name = 'Some note';
-    const deadline = '22.22.2222';
+    const { task, onClickEdit, onClickDelete } = props;
+
+    const { id, name, deadline, totalSeconds, difficulty } = task;
 
     let difficultyClass = Style.Easy;
 
@@ -20,6 +24,9 @@ const Task = props => {
         difficultyClass = Style.Hard;
     }
 
+    const takesFormat = dayjs.duration(totalSeconds, 'seconds').humanize();
+    const deadlineFormat = dayjs(deadline).format('DD/MM/YY');
+
     return (
         <div className={`${Style.TaskWrapper} ${difficultyClass}`}>
             <h2 className={Style.TaskName}>{name}</h2>
@@ -28,13 +35,12 @@ const Task = props => {
                     <div className={Style.TotalSecondsWrapper}>
                         Takes:
                         <span className={Style.TotalSeconds}>
-                            {totalSeconds}
+                            {takesFormat}
                         </span>
-                        secs
                     </div>
                     <div className={Style.DeadlineWrapper}>
                         Deadline:
-                        <span className={Style.Deadline}>{deadline}</span>
+                        <span className={Style.Deadline}>{deadlineFormat}</span>
                     </div>
                 </div>
                 <div className={Style.ButtonsContainer}>
