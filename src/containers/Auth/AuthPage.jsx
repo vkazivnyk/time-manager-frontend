@@ -12,7 +12,7 @@ export default class AuthPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            userName: '',
             password: '',
             isLoading: false,
             errors: [],
@@ -20,7 +20,7 @@ export default class AuthPage extends Component {
     }
 
     onClickHandler = () => {
-        const { email, password, isLoading } = this.state;
+        const { userName, password, isLoading } = this.state;
 
         this.setState({
             isLoading: true,
@@ -28,17 +28,17 @@ export default class AuthPage extends Component {
 
         axiosRESTInstance
             .post('/auth/login', {
-                email,
+                userName,
                 password,
             })
             .then(res => {
-                const { token, username, email } = res.data;
+                const { token, userName, email } = res.data;
 
                 this.setState({
                     isLoading: false,
                 });
 
-                credentials.set(username, email);
+                credentials.set(userName, email);
                 authToken.set(token);
             })
             .catch(err => {
@@ -58,16 +58,16 @@ export default class AuthPage extends Component {
     };
 
     render() {
-        const { email, password, isLoading } = this.state;
+        const { userName, password, isLoading } = this.state;
 
         return (
             <AuthBox onClick={this.onClickHandler}>
                 <Input
-                    label="Enter an email"
-                    value={email}
-                    type="email"
-                    id="email"
-                    name="email"
+                    label="Enter an username"
+                    value={userName}
+                    type="text"
+                    id="userName"
+                    name="userName"
                     onChange={this.handleInputChange}
                 />
                 <Input
