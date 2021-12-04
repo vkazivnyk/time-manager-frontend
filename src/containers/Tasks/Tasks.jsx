@@ -5,7 +5,7 @@ import classes from './Tasks.module.scss';
 
 export default class Tasks extends Component {
     render() {
-        const { tasks, onDeleteTask, ...otherProps } = this.props;
+        const { tasks, onDeleteTask, onPutTask, ...otherProps } = this.props;
 
         return (
             <div className={classes.TasksContainer} {...otherProps}>
@@ -14,6 +14,7 @@ export default class Tasks extends Component {
                         key={task.id}
                         task={task}
                         onDeleteTask={() => onDeleteTask(task)}
+                        onPutTask={() => onPutTask(task)}
                     />
                 ))}
             </div>
