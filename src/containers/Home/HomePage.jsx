@@ -27,7 +27,7 @@ export default class HomePage extends Component {
             minDate: dayjs().toDate(),
             currentDate: dayjs().toDate(),
             newTaskName: '',
-            newTaskTimeEstimation: '',
+            newTaskImportance: '',
             newTaskDeadline: '2021-04-12 07:36:44 AM',
             newTaskDifficulty: 0,
             editedTask: '',
@@ -39,6 +39,14 @@ export default class HomePage extends Component {
             { value: 2, label: 'Normal' },
             { value: 3, label: 'Hard' },
             { value: 4, label: 'Harder' },
+        ];
+
+        this.importanceOptions = [
+            { value: 0, label: 'No importance' },
+            { value: 1, label: 'Low importance' },
+            { value: 2, label: 'Middle importance' },
+            { value: 3, label: 'High importance' },
+            { value: 4, label: 'Extreme importance' },
         ];
     }
 
@@ -117,7 +125,7 @@ export default class HomePage extends Component {
             newTaskName,
             newTaskDeadline,
             newTaskDifficulty,
-            newTaskTimeEstimation,
+            newTaskImportance,
         } = this.state;
 
         this.setState({
@@ -131,7 +139,7 @@ export default class HomePage extends Component {
                     name: newTaskName,
                     deadline: newTaskDeadline,
                     difficulty: newTaskDifficulty,
-                    timeEstimation: newTaskTimeEstimation,
+                    importance: newTaskImportance,
                 }),
             })
             .then(res => {
@@ -196,7 +204,7 @@ export default class HomePage extends Component {
             newTaskName,
             newTaskDeadline,
             newTaskDifficulty,
-            newTaskTimeEstimation,
+            newTaskImportance,
             editedTask,
             tasks,
         } = this.state;
@@ -211,7 +219,7 @@ export default class HomePage extends Component {
             name: newTaskName,
             deadline: newTaskDeadline,
             difficulty: newTaskDifficulty,
-            timeEstimation: newTaskTimeEstimation,
+            importance: newTaskImportance,
         };
 
         axiosGQLInstance
@@ -248,7 +256,7 @@ export default class HomePage extends Component {
             isLoading,
             currentDate,
             newTaskName,
-            newTaskTimeEstimation,
+            newTaskImportance,
             newTaskDeadline,
         } = this.state;
 
@@ -263,20 +271,19 @@ export default class HomePage extends Component {
                     onChange={this.handleTaskInputChange}
                 />
                 <Input
-                    label="Enter a time expectation"
-                    value={newTaskTimeEstimation}
-                    type="text"
-                    id="newTaskTimeEstimation"
-                    name="newTaskTimeEstimation"
-                    onChange={this.handleTaskInputChange}
-                />
-                <Input
                     label="Enter a deadline"
                     value={newTaskDeadline}
                     type="text"
                     id="newTaskDeadline"
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
+                />
+                <Select
+                    options={this.importanceOptions}
+                    defaultValue={this.importanceOptions[0]}
+                    onChange={e =>
+                        this.setState({ newTaskImportance: e.value })
+                    }
                 />
                 <Select
                     options={this.difficultyOptions}
@@ -302,20 +309,19 @@ export default class HomePage extends Component {
                     onChange={this.handleTaskInputChange}
                 />
                 <Input
-                    label="Enter a time expectation"
-                    value={newTaskTimeEstimation}
-                    type="text"
-                    id="newTaskTimeEstimation"
-                    name="newTaskTimeEstimation"
-                    onChange={this.handleTaskInputChange}
-                />
-                <Input
                     label="Enter a deadline"
                     value={newTaskDeadline}
                     type="text"
                     id="newTaskDeadline"
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
+                />
+                <Select
+                    options={this.importanceOptions}
+                    defaultValue={this.importanceOptions[0]}
+                    onChange={e =>
+                        this.setState({ newTaskImportance: e.value })
+                    }
                 />
                 <Select
                     options={this.difficultyOptions}

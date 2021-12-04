@@ -12,7 +12,7 @@ dayjs.extend(relativeTime);
 const Task = props => {
     const { task, onPutTask, onDeleteTask } = props;
 
-    const { name, deadline, timeEstimation, difficulty } = task;
+    const { name, deadline, importance, difficulty } = task;
 
     const expiredClass = dayjs(task.deadline) < dayjs() ? Style.Expired : null;
 
@@ -34,7 +34,24 @@ const Task = props => {
         difficultyClass = Style.Harder;
     }
 
-    const takesFormat = dayjs.duration(timeEstimation, 'seconds').humanize();
+    let importanceValue = 'No importance';
+
+    if (importance === 1) {
+        importanceValue = 'Low importance';
+    }
+
+    if (importance === 2) {
+        importanceValue = 'Middle importance';
+    }
+
+    if (importance === 3) {
+        importanceValue = 'High importance';
+    }
+
+    if (importance === 4) {
+        importanceValue = 'Extreme importance';
+    }
+
     const deadlineFormat = dayjs(deadline).format('DD/MM/YY');
 
     return (
@@ -44,9 +61,9 @@ const Task = props => {
             <div className={Style.TaskItemsContainer}>
                 <div className={Style.TaskInfoContainer}>
                     <div className={Style.TotalSecondsWrapper}>
-                        Takes:
+                        Importance:
                         <span className={Style.TotalSeconds}>
-                            {takesFormat}
+                            {importanceValue}
                         </span>
                     </div>
                     <div className={Style.DeadlineWrapper}>
