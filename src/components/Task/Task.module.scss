@@ -3,30 +3,61 @@
 .TaskWrapper {
     color: $main-text-color;
     margin: 1rem 0;
+    padding: 0.5rem 1rem;
     border: 4px solid $task-color;
     border-radius: 10px;
     background-color: $task-color;
     position: relative;
+    width: 32%;
+
+    @media screen and (max-width: 93.75rem) {
+        width: 49%;
+    }
+
+    @media screen and (max-width: 68.75rem) {
+        width: 100%;
+    }
 
     .TaskName {
         text-align: center;
-        margin: 1rem 0;
+        padding: 1rem 0 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            height: 2px;
+            left: 20%;
+            right: 20%;
+            background-color: $task-hover-color;
+        }
     }
 
     .TaskItemsContainer {
+        padding: 0.5rem 0;
         align-items: center;
         justify-content: space-between;
         display: flex;
-        flex-direction: row;
-        width: 90%;
+        flex-direction: column;
+        width: 100%;
         margin: auto;
     }
 
+    .ButtonsContainer {
+        padding-top: 0.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
     button {
+        position: relative;
         width: 4rem;
         height: 4rem;
-        font-size: 1rem;
-        line-height: 4rem;
+        font-size: 1.5rem;
         right: 0px;
         border-radius: 50%;
         background-repeat: no-repeat;
@@ -35,66 +66,26 @@
         cursor: pointer;
         background-color: $task-color;
         transition: 0.2s;
+
         &:hover {
             background-color: $task-hover-color;
         }
-    }
 
-    &::before {
-        position: absolute;
-        font-weight: bold;
-        letter-spacing: 0.1rem;
-        top: 1rem;
-        left: 1rem;
-    }
-
-    &.Easier {
-        border-color: $easier-color;
-
-        &::before {
-            content: 'Easier';
-            color: $easier-color;
+        .Put,
+        .Delete {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-    }
 
-    &.Easy {
-        border-color: $easy-color;
-
-        &::before {
-            content: 'Easy';
-            color: $easy-color;
-        }
-    }
-
-    &.Medium {
-        border-color: $medium-color;
-
-        &::before {
-            content: 'Medium';
-            color: $easier-color;
-        }
-    }
-
-    &.Hard {
-        border-color: $hard-color;
-
-        &::before {
-            content: 'Hard';
-            color: $hard-color;
-        }
-    }
-
-    &.Harder {
-        border-color: $harder-color;
-
-        &::before {
-            content: 'Harder';
-            color: $harder-color;
+        .Delete {
+            color: $task-delete-color;
         }
     }
 
     &.Expired {
-        &::after {
+        &::before {
             content: '(Expired)';
             position: absolute;
             font-weight: bold;
@@ -104,23 +95,143 @@
             color: $expired-color;
         }
     }
-}
 
-.TaskInfoContainer {
-    width: 45%;
-    font-size: 1.2rem;
+    &::before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        bottom: 50%;
+        left: -5px;
+        right: -5px;
+        z-index: -1;
+        border-radius: 10px;
+        filter: blur(5px);
+    }
 
-    .TotalSecondsWrapper {
-        .TotalSeconds {
-            font-weight: bold;
-            margin: 0 1rem;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        bottom: -5px;
+        left: -5px;
+        right: -5px;
+        z-index: -1;
+        border-radius: 10px;
+        filter: blur(5px);
+    }
+
+    &[data-importance='0'] {
+        .Importance {
+            color: $no-importance-color;
+        }
+
+        &::before {
+            background-color: $no-importance-color;
         }
     }
 
-    .DeadlineWrapper {
-        .Deadline {
+    &[data-importance='1'] {
+        .Importance {
+            color: $low-importance-color;
+        }
+
+        &::before {
+            background-color: $low-importance-color;
+        }
+    }
+
+    &[data-importance='2'] {
+        .Importance {
+            color: $medium-importance-color;
+        }
+
+        &::before {
+            background-color: $medium-importance-color;
+        }
+    }
+
+    &[data-importance='3'] {
+        .Importance {
+            color: $high-importance-color;
+        }
+
+        &::before {
+            background-color: $high-importance-color;
+        }
+    }
+
+    &[data-importance='4'] {
+        .Importance {
+            color: $extreme-importance-color;
+        }
+
+        &::before {
+            background-color: $extreme-importance-color;
+        }
+    }
+
+    &[data-difficulty='0'] {
+        .Difficulty {
+            color: $easier-color;
+        }
+
+        &::after {
+            background-color: $easier-color;
+        }
+    }
+
+    &[data-difficulty='1'] {
+        .Difficulty {
+            color: $easy-color;
+        }
+
+        &::after {
+            background-color: $easy-color;
+        }
+    }
+
+    &[data-difficulty='2'] {
+        .Difficulty {
+            color: $medium-color;
+        }
+
+        &::after {
+            background-color: $medium-color;
+        }
+    }
+
+    &[data-difficulty='3'] {
+        .Difficulty {
+            color: $hard-color;
+        }
+
+        &::after {
+            background-color: $hard-color;
+        }
+    }
+
+    &[data-difficulty='4'] {
+        .Difficulty {
+            color: $harder-color;
+        }
+
+        &::after {
+            background-color: $harder-color;
+        }
+    }
+}
+
+.TaskInfoContainer {
+    width: 100%;
+    font-size: 1.2rem;
+
+    > div {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.25rem 0;
+
+        span:last-of-type {
             font-weight: bold;
-            margin-left: 1rem;
         }
     }
 }

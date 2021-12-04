@@ -16,22 +16,22 @@ const Task = props => {
 
     const expiredClass = dayjs(task.deadline) < dayjs() ? Style.Expired : null;
 
-    let difficultyClass = Style.Easier;
+    let difficultyValue = 'Easier';
 
     if (difficulty === 1) {
-        difficultyClass = Style.Easy;
+        difficultyValue = 'Easy';
     }
 
     if (difficulty === 2) {
-        difficultyClass = Style.Medium;
+        difficultyValue = 'Medium';
     }
 
     if (difficulty === 3) {
-        difficultyClass = Style.Hard;
+        difficultyValue = 'Hard';
     }
 
     if (difficulty === 4) {
-        difficultyClass = Style.Harder;
+        difficultyValue = 'Harder';
     }
 
     let importanceValue = 'No importance';
@@ -56,27 +56,35 @@ const Task = props => {
 
     return (
         <div
-            className={`${Style.TaskWrapper} ${difficultyClass} ${expiredClass}`}>
+            className={`${Style.TaskWrapper} ${expiredClass}`}
+            data-importance={importance}
+            data-difficulty={difficulty}>
             <h2 className={Style.TaskName}>{name}</h2>
             <div className={Style.TaskItemsContainer}>
                 <div className={Style.TaskInfoContainer}>
-                    <div className={Style.TotalSecondsWrapper}>
-                        Importance:
-                        <span className={Style.TotalSeconds}>
+                    <div className={Style.ImportanceWrapper}>
+                        <span>Importance:</span>
+                        <span className={Style.Importance}>
                             {importanceValue}
                         </span>
                     </div>
+                    <div className={Style.DifficultyWrapper}>
+                        <span>Difficulty:</span>
+                        <span className={Style.Difficulty}>
+                            {difficultyValue}
+                        </span>
+                    </div>
                     <div className={Style.DeadlineWrapper}>
-                        Deadline:
+                        <span>Deadline:</span>
                         <span className={Style.Deadline}>{deadlineFormat}</span>
                     </div>
                 </div>
                 <div className={Style.ButtonsContainer}>
                     <button type="button" onClick={onPutTask}>
-                        <FaPen />
+                        <FaPen className={Style.Put} />
                     </button>
                     <button type="button" onClick={onDeleteTask}>
-                        <FaTimes />
+                        <FaTimes className={Style.Delete} />
                     </button>
                 </div>
             </div>
