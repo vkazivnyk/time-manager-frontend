@@ -12,7 +12,7 @@ dayjs.extend(relativeTime);
 const Task = props => {
     const { task, onClickEdit, onDeleteTask } = props;
 
-    const { id, name, deadline, timeEstimation, difficulty } = task;
+    const { name, deadline, timeEstimation, difficulty } = task;
 
     let difficultyClass = Style.Easy;
 

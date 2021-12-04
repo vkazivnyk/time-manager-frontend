@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+body {
+    color: $second-color;
+}
+
 :root {
     background-color: $main-color;
 }

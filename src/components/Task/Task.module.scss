@@ -1,7 +1,8 @@
 @import '../../global/scss/global.scss';
 
 .TaskWrapper {
-    margin: 1rem;
+    color: $main-text-color;
+    margin: 1rem 0;
     border: 2px solid $task-color;
     border-radius: 10px;
     background-color: $task-color;
@@ -21,7 +22,6 @@
     }
 
     button {
-        color: $text-color;
         width: 4rem;
         height: 4rem;
         font-size: 1rem;
@@ -30,6 +30,7 @@
         border-radius: 50%;
         background-repeat: no-repeat;
         border: none;
+        color: inherit;
         cursor: pointer;
         background-color: $task-color;
         transition: 0.2s;

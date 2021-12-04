@@ -1,5 +1,5 @@
 import React from 'react';
-import Style from './Backdrop.scss';
+import Style from './Backdrop.module.scss';
 
 const Backdrop = props => {
     const { onClick } = props;
