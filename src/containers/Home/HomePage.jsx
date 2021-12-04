@@ -259,6 +259,15 @@ export default class HomePage extends Component {
         console.log(error);
     };
 
+    getDate = newDate => {
+        console.log(newDate);
+        this.setState({ newTaskDeadline: newDate }, () => {
+            const { newTaskDeadline } = this.state;
+            console.log('--------------');
+            console.log(newTaskDeadline);
+        });
+    };
+
     render() {
         const {
             tasks,
@@ -284,7 +293,10 @@ export default class HomePage extends Component {
                     onChange={this.handleTaskInputChange}
                 />
                 <div className={Style.deadlineWrapper}> Enter deadline</div>
-                <DateTimePicker />
+                <DateTimePicker
+                    getDate={this.getDate}
+                    currentDate={currentDate}
+                />
                 <div className={Style.select}>
                     <Select
                         options={this.importanceOptions}
@@ -319,7 +331,7 @@ export default class HomePage extends Component {
                     onChange={this.handleTaskInputChange}
                 />
                 <div className={Style.deadlineWrapper}> Enter deadline</div>
-                <DateTimePicker />
+                <DateTimePicker getDate={this.getDate} />
                 <div className={Style.select}>
                     <Select
                         options={this.importanceOptions}

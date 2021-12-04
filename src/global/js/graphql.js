@@ -15,7 +15,7 @@ const graphql = {
         `mutation {
             addUserTask(input: {
             name: "${name}"
-            deadline: "${deadline}",
+            deadline: "${dayjs(deadline).toISOString()}",
             importance: ${importance},
             difficulty: ${difficulty}
             })
@@ -56,7 +56,7 @@ const graphql = {
             putUserTask(input: {
                 id: "${id}",
                 name: "${name}",
-                deadline: "${deadline}",
+                deadline: "${dayjs(deadline).toISOString()}",
                 importance: ${importance},
                 difficulty: ${difficulty}
             })
