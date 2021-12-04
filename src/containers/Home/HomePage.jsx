@@ -30,6 +30,7 @@ export default class HomePage extends Component {
             newTaskTimeEstimation: '',
             newTaskDeadline: '2021-04-12 07:36:44 AM',
             newTaskDifficulty: 0,
+            editedTask: '',
         };
 
         this.difficultyOptions = [
@@ -97,7 +98,7 @@ export default class HomePage extends Component {
         });
     };
 
-    handleAddTaskInputChange = e => {
+    handleTaskInputChange = e => {
         const { name, value } = e.target;
 
         this.setState({
@@ -183,11 +184,67 @@ export default class HomePage extends Component {
             });
     };
 
+    onPutTask = element => {
+        this.setState({
+            isTaskEditing: true,
+            editedTask: element,
+        });
+    };
+
+    handlePutTaskSubmit = () => {
+        const {
+            newTaskName,
+            newTaskDeadline,
+            newTaskDifficulty,
+            newTaskTimeEstimation,
+            editedTask,
+            tasks,
+        } = this.state;
+
+        this.setState({
+            isTaskEditing: false,
+            isLoading: true,
+        });
+
+        const newTask = {
+            id: editedTask['id'],
+            name: newTaskName,
+            deadline: newTaskDeadline,
+            difficulty: newTaskDifficulty,
+            timeEstimation: newTaskTimeEstimation,
+        };
+
+        axiosGQLInstance
+            .post('', {
+                query: graphql.putTask(newTask),
+            })
+            .then(res => {
+                if (res.data.errors) {
+                    this.setState({
+                        errors: res.data.errors,
+                        isLoading: false,
+                    });
+                    return;
+                }
+
+                const editedTaskIndex = tasks.findIndex(
+                    t => t.id === newTask.id,
+                );
+
+                tasks[editedTaskIndex] = newTask;
+                this.setState({
+                    tasks: [...tasks],
+                    isLoading: false,
+                });
+            });
+    };
+
     render() {
         const {
             tasks,
             errors,
             isTaskAdding,
+            isTaskEditing,
             isLoading,
             currentDate,
             newTaskName,
@@ -195,7 +252,7 @@ export default class HomePage extends Component {
             newTaskDeadline,
         } = this.state;
 
-        const popup = isTaskAdding ? (
+        const addPopup = isTaskAdding ? (
             <Popup onDismiss={() => this.setState({ isTaskAdding: false })}>
                 <Input
                     label="Enter a task name"
@@ -203,7 +260,7 @@ export default class HomePage extends Component {
                     type="text"
                     id="newTaskName"
                     name="newTaskName"
-                    onChange={this.handleAddTaskInputChange}
+                    onChange={this.handleTaskInputChange}
                 />
                 <Input
                     label="Enter a time expectation"
@@ -211,7 +268,7 @@ export default class HomePage extends Component {
                     type="text"
                     id="newTaskTimeEstimation"
                     name="newTaskTimeEstimation"
-                    onChange={this.handleAddTaskInputChange}
+                    onChange={this.handleTaskInputChange}
                 />
                 <Input
                     label="Enter a deadline"
@@ -219,7 +276,7 @@ export default class HomePage extends Component {
                     type="text"
                     id="newTaskDeadline"
                     name="newTaskDeadline"
-                    onChange={this.handleAddTaskInputChange}
+                    onChange={this.handleTaskInputChange}
                 />
                 <Select
                     options={this.difficultyOptions}
@@ -229,7 +286,46 @@ export default class HomePage extends Component {
                     }
                 />
                 <div className={Style.PopupButtonWrapper}>
-                    <Button onClick={this.handleAddTaskSubmit}>Submit</Button>
+                    <Button onClick={this.onPutTask}>Submit</Button>
+                </div>
+            </Popup>
+        ) : null;
+
+        const putPopup = isTaskEditing ? (
+            <Popup onDismiss={() => this.setState({ isTaskEditing: false })}>
+                <Input
+                    label="Enter a task name"
+                    value={newTaskName}
+                    type="text"
+                    id="newTaskName"
+                    name="newTaskName"
+                    onChange={this.handleTaskInputChange}
+                />
+                <Input
+                    label="Enter a time expectation"
+                    value={newTaskTimeEstimation}
+                    type="text"
+                    id="newTaskTimeEstimation"
+                    name="newTaskTimeEstimation"
+                    onChange={this.handleTaskInputChange}
+                />
+                <Input
+                    label="Enter a deadline"
+                    value={newTaskDeadline}
+                    type="text"
+                    id="newTaskDeadline"
+                    name="newTaskDeadline"
+                    onChange={this.handleTaskInputChange}
+                />
+                <Select
+                    options={this.difficultyOptions}
+                    defaultValue={this.difficultyOptions[0]}
+                    onChange={e =>
+                        this.setState({ newTaskDifficulty: e.value })
+                    }
+                />
+                <div className={Style.PopupButtonWrapper}>
+                    <Button onClick={this.handlePutTaskSubmit}>Submit</Button>
                 </div>
             </Popup>
         ) : null;
@@ -246,6 +342,7 @@ export default class HomePage extends Component {
                         tasks={tasks}
                         className={Style.Tasks}
                         onDeleteTask={this.onDeleteTask}
+                        onPutTask={this.onPutTask}
                     />
                     <CalendarComponent
                         className={Style.Calendar}
@@ -253,7 +350,8 @@ export default class HomePage extends Component {
                         value={currentDate}
                     />
                 </div>
-                {popup}
+                {addPopup}
+                {putPopup}
                 {isLoading ? (
                     <Backdrop>
                         <Spinner />
