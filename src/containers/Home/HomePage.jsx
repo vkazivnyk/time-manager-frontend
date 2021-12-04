@@ -8,6 +8,7 @@ import { Popup } from '../../components/Popup/Popup';
 import axiosGQLInstance from '../../global/js/axiosGQLInstance';
 import graphql from '../../global/js/graphql';
 import Tasks from '../Tasks/Tasks';
+import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
 
 export default class HomePage extends Component {
@@ -18,6 +19,8 @@ export default class HomePage extends Component {
             tasks: [],
             errors: [],
             isTaskAdding: false,
+            isTaskEditing: false,
+            isLoading: false,
             newTaskName: '',
             newTaskTimeEstimation: '',
             newTaskDeadline: '2021-04-12 07:36:44 AM',
@@ -98,11 +101,43 @@ export default class HomePage extends Component {
             });
     };
 
+    onDeleteTask = element => {
+        const { tasks } = this.state;
+        const taskId = element['id'];
+
+        this.setState({
+            isLoading: true,
+        });
+
+        axiosGQLInstance
+            .post('', {
+                query: graphql.deleteTask(taskId),
+            })
+            .then(res => {
+                if (res.data.errors) {
+                    this.setState({
+                        errors: res.data.errors,
+                        isLoading: false,
+                    });
+                    return;
+                }
+
+                const deletedTaskIndex = tasks.findIndex(t => t.id === taskId);
+
+                tasks.splice(deletedTaskIndex, 1);
+                this.setState({
+                    tasks: [...tasks],
+                    isLoading: false,
+                });
+            });
+    };
+
     render() {
         const {
             tasks,
             errors,
             isTaskAdding,
+            isLoading,
             newTaskName,
             newTaskTimeEstimation,
             newTaskDeadline,
@@ -155,10 +190,15 @@ export default class HomePage extends Component {
                     </Button>
                 </div>
                 <div className={Style.TasksCalendarWrapper}>
-                    <Tasks tasks={tasks} className={Style.Tasks} />
+                    <Tasks
+                        tasks={tasks}
+                        className={Style.Tasks}
+                        onDeleteTask={this.onDeleteTask}
+                    />
                     <CalendarComponent className={Style.Calendar} />
                 </div>
                 {popup}
+                {isLoading ? <Spinner /> : null}
             </>
         );
     }

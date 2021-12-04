@@ -1,5 +1,5 @@
 .Spinner {
-    background-color: rgba(#23272a, 0.96);
+    background-color: rgba(#23272a, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,6 +8,7 @@
     position: fixed;
     right: 0;
     top: 0;
+    z-index: 3;
 }
 
 .Circle {
