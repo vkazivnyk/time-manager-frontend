@@ -1,6 +1,7 @@
 import React from 'react';
 import BurgerMenu from '../components/BurgerMenu/BurgerMenu';
 import Button from '../components/Button/Button';
+import Task from '../components/Task/Task';
 import classes from './Layout.module.scss';
 
 class Layout extends React.PureComponent {
@@ -18,11 +19,7 @@ class Layout extends React.PureComponent {
                     <Button>Sign up</Button>
                 </header>
                 <main>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Optio velit eum illum laborum quas eligendi officiis
-                    quaerat. Laborum, aut. Voluptate repellendus qui illo
-                    voluptatum similique, reiciendis repudiandae dolorem dolor?
-                    Corporis.
+                    <Task />
                 </main>
             </div>
         );

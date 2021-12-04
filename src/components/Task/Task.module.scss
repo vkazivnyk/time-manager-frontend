@@ -1,28 +1,39 @@
-@use '../../global/scss/global.scss' as *;
-
-* {
-    $text-color: #fff;
-}
+@import '../../global/scss/global.scss';
 
 .Wrapper {
-    width: 100%;
+    width: 50%;
     align-items: center;
+    justify-content: center;
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
-    min-height: 3rem;
-    max-height: 3rem;
-    border: 2px solid $main-color-dark;
+    min-height: 10rem;
+    max-height: 10rem;
+    border: 2px solid;
     border-radius: 10px;
 
     .TaskWrapper {
-        width: 90%;
+        width: 80%;
+        height: 60%;
+    }
+
+    .DateWrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .StartDateWrapper {
+            min-width: 50%;
+        }
+
+        .EndDateWrapper {
+            min-width: 50%;
+        }
     }
 
     button {
-        width: 10%;
+        width: 20%;
         color: $text-color;
-        height: 3rem;
+        height: 10rem;
         right: 0px;
         border-radius: 10px;
         background-color: $main-color;
