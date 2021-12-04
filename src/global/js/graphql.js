@@ -55,8 +55,8 @@ const graphql = {
                 id: "${id}",
                 name: "${name}",
                 deadline: "${deadline}",
-                timeEstimation: "${timeEstimation}",
-                difficulty: "${difficulty}"
+                timeEstimation: ${timeEstimation},
+                difficulty: ${difficulty}
             })
             {
                 task {

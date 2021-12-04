@@ -10,7 +10,7 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
 const Task = props => {
-    const { task, onClickEdit, onDeleteTask } = props;
+    const { task, onPutTask, onDeleteTask } = props;
 
     const { name, deadline, timeEstimation, difficulty } = task;
 
@@ -44,7 +44,7 @@ const Task = props => {
                     </div>
                 </div>
                 <div className={Style.ButtonsContainer}>
-                    <button type="button" onClick={onClickEdit}>
+                    <button type="button" onClick={onPutTask}>
                         <FaPen />
                     </button>
                     <button type="button" onClick={onDeleteTask}>
