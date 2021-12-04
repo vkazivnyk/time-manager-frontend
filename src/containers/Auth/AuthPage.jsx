@@ -7,6 +7,7 @@ import axiosRESTInstance from '../../global/js/axiosRESTInstance';
 import { credentials } from '../../global/js/credentials';
 import { authToken } from '../../global/js/authToken';
 import Style from './AuthPage.module.scss';
+import { Popup } from '../../components/Popup/Popup';
 
 export default class AuthPage extends Component {
     constructor(props) {
@@ -58,7 +59,7 @@ export default class AuthPage extends Component {
     };
 
     render() {
-        const { userName, password, isLoading } = this.state;
+        const { userName, password, isLoading, errors } = this.state;
 
         return (
             <AuthBox onClick={this.onClickHandler}>
@@ -89,6 +90,16 @@ export default class AuthPage extends Component {
                         Register
                     </Link>
                 </div>
+                {errors.length ? (
+                    <Popup
+                        onDismiss={() => {
+                            this.setState({ errors: [] });
+                        }}>
+                        {errors.map(element => (
+                            <p>{element.message}</p>
+                        ))}
+                    </Popup>
+                ) : null}
             </AuthBox>
         );
     }
