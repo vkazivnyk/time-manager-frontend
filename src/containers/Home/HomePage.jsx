@@ -8,6 +8,7 @@ import { Popup } from '../../components/Popup/Popup';
 import axiosGQLInstance from '../../global/js/axiosGQLInstance';
 import graphql from '../../global/js/graphql';
 import Tasks from '../Tasks/Tasks';
+import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
 
 export default class HomePage extends Component {
@@ -18,6 +19,8 @@ export default class HomePage extends Component {
             tasks: [],
             errors: [],
             isTaskAdding: false,
+            isTaskEditing: false,
+            isLoading: false,
             newTaskName: '',
         };
 
@@ -67,6 +70,10 @@ export default class HomePage extends Component {
         const { tasks } = this.state;
         const taskId = element['id'];
 
+        this.setState({
+            isLoading: true,
+        });
+
         axiosGQLInstance
             .post('', {
                 query: graphql.deleteTask(taskId),
@@ -75,6 +82,7 @@ export default class HomePage extends Component {
                 if (res.data.errors) {
                     this.setState({
                         errors: res.data.errors,
+                        isLoading: false,
                     });
                     return;
                 }
@@ -84,12 +92,14 @@ export default class HomePage extends Component {
                 tasks.splice(deletedTaskIndex, 1);
                 this.setState({
                     tasks: [...tasks],
+                    isLoading: false,
                 });
             });
     };
 
     render() {
-        const { tasks, errors, isTaskAdding, newTaskName } = this.state;
+        const { tasks, errors, isTaskAdding, isLoading, newTaskName } =
+            this.state;
 
         const popup = isTaskAdding ? (
             <Popup onDismiss={() => this.setState({ isTaskAdding: false })}>
@@ -127,6 +137,7 @@ export default class HomePage extends Component {
                     <CalendarComponent className={Style.Calendar} />
                 </div>
                 {popup}
+                {isLoading ? <Spinner /> : null}
             </>
         );
     }
