@@ -4,13 +4,11 @@ import 'react-calendar/dist/Calendar.css';
 import classes from './CalendarComponent.scss';
 
 class CalendarComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
     render() {
+        const { ...otherProps } = this.props;
+
         return (
-            <div className={classes.container}>
+            <div {...otherProps}>
                 <Calendar />
             </div>
         );

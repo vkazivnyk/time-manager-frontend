@@ -1,48 +1,53 @@
 import React from 'react';
+import { FaPen, FaTimes } from 'react-icons/fa';
+
 import Style from './Task.module.scss';
 
-let borderColor = '';
+const Task = props => {
+    const { onClickEdit, onClickDelete } = props;
+    const difficulty = Math.floor(Math.random() * 3);
+    const totalSeconds = 1000;
+    const name = 'Some note';
+    const deadline = '22.22.2222';
 
-const selectBorderColor = difficulty => {
-    if (difficulty === 0) {
-        borderColor = '';
+    let difficultyClass = Style.Easy;
+
+    if (difficulty === 1) {
+        difficultyClass = Style.Medium;
     }
-};
 
-const Todo = props => {
-    const { children, onClickEdit, onClickDelete } = props;
-    const difficulty = 0;
-    const startDate = '21.21.2020';
-    const endDate = '22.22.2222';
-    selectBorderColor(difficulty);
+    if (difficulty === 2) {
+        difficultyClass = Style.Hard;
+    }
 
     return (
-        <div
-            className={Style.Wrapper}
-            style={{ borderColor: `${borderColor}` }}>
-            <div className={Style.TaskWrapper}>
-                {children}
-                <div className={Style.DateWrapper}>
-                    <div className={Style.StartDateWrapper}>
-                        {'startDate:'}
-                        <br />
-                        {startDate}
+        <div className={`${Style.TaskWrapper} ${difficultyClass}`}>
+            <h2 className={Style.TaskName}>{name}</h2>
+            <div className={Style.TaskItemsContainer}>
+                <div className={Style.TaskInfoContainer}>
+                    <div className={Style.TotalSecondsWrapper}>
+                        Takes:
+                        <span className={Style.TotalSeconds}>
+                            {totalSeconds}
+                        </span>
+                        secs
                     </div>
-                    <div className={Style.EndDateWrapper}>
-                        {'endDate:'}
-                        <br />
-                        {endDate}
+                    <div className={Style.DeadlineWrapper}>
+                        Deadline:
+                        <span className={Style.Deadline}>{deadline}</span>
                     </div>
                 </div>
+                <div className={Style.ButtonsContainer}>
+                    <button type="button" onClick={onClickEdit}>
+                        <FaPen />
+                    </button>
+                    <button type="button" onClick={onClickDelete}>
+                        <FaTimes />
+                    </button>
+                </div>
             </div>
-            <button type="button" onClick={onClickEdit}>
-                &#9998;
-            </button>
-            <button type="button" onClick={onClickDelete}>
-                &#10006;
-            </button>
         </div>
     );
 };
 
-export default Todo;
+export default Task;
