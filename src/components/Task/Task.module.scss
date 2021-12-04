@@ -97,11 +97,19 @@
             letter-spacing: 0.1rem;
             top: 1rem;
             right: 1rem;
+            left: initial;
+            bottom: initial;
             color: $expired-color;
+            filter: blur(0px);
+            z-index: 1;
+        }
+
+        &::after {
+            content: none;
         }
     }
 
-    &::before {
+    &:not(.Expired):before {
         content: '';
         position: absolute;
         top: -5px;
@@ -130,7 +138,7 @@
             color: $no-importance-color;
         }
 
-        &::before {
+        &:not(.Expired)::before {
             background-color: $no-importance-color;
         }
     }
@@ -140,7 +148,7 @@
             color: $low-importance-color;
         }
 
-        &::before {
+        &:not(.Expired)::before {
             background-color: $low-importance-color;
         }
     }
@@ -150,7 +158,7 @@
             color: $medium-importance-color;
         }
 
-        &::before {
+        &:not(.Expired)::before {
             background-color: $medium-importance-color;
         }
     }
@@ -160,7 +168,7 @@
             color: $high-importance-color;
         }
 
-        &::before {
+        &:not(.Expired)::before {
             background-color: $high-importance-color;
         }
     }
@@ -170,7 +178,7 @@
             color: $extreme-importance-color;
         }
 
-        &::before {
+        &:not(.Expired)::before {
             background-color: $extreme-importance-color;
         }
     }
