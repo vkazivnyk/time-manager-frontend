@@ -73,6 +73,10 @@ export default class HomePage extends Component {
     fetchTasks() {
         const { currentDate } = this.state;
 
+        this.setState({
+            isLoading: true,
+        });
+
         axiosGQLInstance
             .post('', {
                 query: graphql.getTasks({ endDate: currentDate }),
@@ -81,6 +85,7 @@ export default class HomePage extends Component {
                 if (res.data.errors) {
                     this.setState({
                         errors: res.data.errors,
+                        isLoading: false,
                     });
                     return;
                 }
@@ -88,6 +93,7 @@ export default class HomePage extends Component {
                 this.setState({
                     allTasks: res.data.data.task,
                     tasks: res.data.data.task,
+                    isLoading: false,
                 });
             });
     }
