@@ -14,21 +14,32 @@ const Task = props => {
 
     const { name, deadline, timeEstimation, difficulty } = task;
 
-    let difficultyClass = Style.Easy;
+    const expiredClass = dayjs(task.deadline) < dayjs() ? Style.Expired : null;
+
+    let difficultyClass = Style.Easier;
 
     if (difficulty === 1) {
-        difficultyClass = Style.Medium;
+        difficultyClass = Style.Easy;
     }
 
     if (difficulty === 2) {
+        difficultyClass = Style.Medium;
+    }
+
+    if (difficulty === 3) {
         difficultyClass = Style.Hard;
+    }
+
+    if (difficulty === 4) {
+        difficultyClass = Style.Harder;
     }
 
     const takesFormat = dayjs.duration(timeEstimation, 'seconds').humanize();
     const deadlineFormat = dayjs(deadline).format('DD/MM/YY');
 
     return (
-        <div className={`${Style.TaskWrapper} ${difficultyClass}`}>
+        <div
+            className={`${Style.TaskWrapper} ${difficultyClass} ${expiredClass}`}>
             <h2 className={Style.TaskName}>{name}</h2>
             <div className={Style.TaskItemsContainer}>
                 <div className={Style.TaskInfoContainer}>
