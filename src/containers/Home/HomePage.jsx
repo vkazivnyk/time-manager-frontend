@@ -34,13 +34,42 @@ export default class HomePage extends Component {
             });
     }
 
+    onDeleteTask = element => {
+        const { tasks } = this.state;
+        const taskId = element['id'];
+
+        axiosGQLInstance
+            .post('', {
+                query: graphql.deleteTask(taskId),
+            })
+            .then(res => {
+                if (res.data.errors) {
+                    this.setState({
+                        errors: res.data.errors,
+                    });
+                    return;
+                }
+
+                const deletedTaskIndex = tasks.findIndex(t => t.id === taskId);
+
+                tasks.splice(deletedTaskIndex, 1);
+                this.setState({
+                    tasks: [...tasks],
+                });
+            });
+    };
+
     render() {
         const { tasks, errors } = this.state;
 
         return (
             <Layout>
                 <div className={Style.TasksCalendarWrapper}>
-                    <Tasks tasks={tasks} className={Style.Tasks} />
+                    <Tasks
+                        tasks={tasks}
+                        className={Style.Tasks}
+                        onDeleteTask={this.onDeleteTask}
+                    />
                     <CalendarComponent className={Style.Calendar} />
                 </div>
             </Layout>

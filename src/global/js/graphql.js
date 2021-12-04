@@ -8,6 +8,22 @@ const graphql = {
             difficulty
         }
     }`,
+
+    deleteTask: taskId =>
+        `mutation {
+            deleteUserTask(input: {
+                id: "${taskId}"
+            })
+            {
+                task {
+                    id
+                    name
+                    deadline
+                    timeEstimation
+                    difficulty
+                }
+            }
+    }`,
 };
 
 export default graphql;
