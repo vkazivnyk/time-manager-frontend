@@ -54,6 +54,9 @@
 
     .Tasks {
         width: 70%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .Calendar {
@@ -67,6 +70,20 @@
     @media screen and (max-width: 800px) {
         .Form {
             min-width: 80%;
+        }
+    }
+
+    @media screen and (max-width: 62.5rem) {
+        flex-direction: column-reverse;
+        align-items: center;
+
+        .Tasks,
+        .Calendar {
+            width: 100%;
+        }
+
+        .Calendar {
+            justify-content: center;
         }
     }
 }
