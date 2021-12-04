@@ -14,8 +14,8 @@
         text-align: center;
         margin: 2rem auto 1rem;
         font-size: 1.2em;
-        height: 65px;
-        width: 17rem;
+        height: 4rem;
+        width: 80%;
         line-height: 65px;
         border: 3px solid darken($second-color, 30%);
         border-radius: 10px;
@@ -32,5 +32,11 @@
             background: darken($second-color, 25%);
             border: 3px solid darken($second-color, 40%);
         }
+    }
+}
+
+@media (max-width: 700px) {
+    .Wrapper {
+        width: 80%;
     }
 }
