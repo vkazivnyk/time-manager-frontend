@@ -38,12 +38,10 @@ export default class HomePage extends Component {
         const { tasks, errors } = this.state;
 
         return (
-            <Layout>
-                <div className={Style.TasksCalendarWrapper}>
-                    <Tasks tasks={tasks} className={Style.Tasks} />
-                    <CalendarComponent className={Style.Calendar} />
-                </div>
-            </Layout>
+            <div className={Style.TasksCalendarWrapper}>
+                <Tasks tasks={tasks} className={Style.Tasks} />
+                <CalendarComponent className={Style.Calendar} />
+            </div>
         );
     }
 }
