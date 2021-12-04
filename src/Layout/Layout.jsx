@@ -20,7 +20,7 @@ class Layout extends React.Component {
                     <Button>Sign up</Button>
                 </header>
                 <main>
-                    <Task />
+                    <Task children="hello oleg" />
                     <Task />
                     <Task />
                     <Task />

@@ -12,8 +12,8 @@ const selectBorderColor = difficulty => {
 const Todo = props => {
     const { children, onClickEdit, onClickDelete } = props;
     const difficulty = 0;
-    const startDate = 'startDate';
-    const endDate = 'endDate';
+    const startDate = '21.21.2020';
+    const endDate = '22.22.2222';
     selectBorderColor(difficulty);
 
     return (
@@ -23,8 +23,16 @@ const Todo = props => {
             <div className={Style.TaskWrapper}>
                 {children}
                 <div className={Style.DateWrapper}>
-                    <div className={Style.StartDateWrapper}>{startDate}</div>
-                    <div className={Style.EndDateWrapper}>{endDate}</div>
+                    <div className={Style.StartDateWrapper}>
+                        {'startDate:'}
+                        <br />
+                        {startDate}
+                    </div>
+                    <div className={Style.EndDateWrapper}>
+                        {'endDate:'}
+                        <br />
+                        {endDate}
+                    </div>
                 </div>
             </div>
             <button type="button" onClick={onClickEdit}>
