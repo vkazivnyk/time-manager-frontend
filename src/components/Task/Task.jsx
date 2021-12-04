@@ -16,11 +16,11 @@ const Task = props => {
 
     let difficultyClass = Style.Easy;
 
-    if (difficulty === 1) {
+    if (difficulty === 2) {
         difficultyClass = Style.Medium;
     }
 
-    if (difficulty === 2) {
+    if (difficulty === 3 || difficulty === 4) {
         difficultyClass = Style.Hard;
     }
 
