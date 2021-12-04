@@ -40,61 +40,8 @@
         }
     }
 
-    &::before {
-        position: absolute;
-        font-weight: bold;
-        letter-spacing: 0.1rem;
-        top: 1rem;
-        left: 1rem;
-    }
-
-    &.Easier {
-        border-color: $easier-color;
-
-        &::before {
-            content: 'Easier';
-            color: $easier-color;
-        }
-    }
-
-    &.Easy {
-        border-color: $easy-color;
-
-        &::before {
-            content: 'Easy';
-            color: $easy-color;
-        }
-    }
-
-    &.Medium {
-        border-color: $medium-color;
-
-        &::before {
-            content: 'Medium';
-            color: $easier-color;
-        }
-    }
-
-    &.Hard {
-        border-color: $hard-color;
-
-        &::before {
-            content: 'Hard';
-            color: $hard-color;
-        }
-    }
-
-    &.Harder {
-        border-color: $harder-color;
-
-        &::before {
-            content: 'Harder';
-            color: $harder-color;
-        }
-    }
-
     &.Expired {
-        &::after {
+        &::before {
             content: '(Expired)';
             position: absolute;
             font-weight: bold;
@@ -110,8 +57,15 @@
     width: 45%;
     font-size: 1.2rem;
 
-    .TotalSecondsWrapper {
-        .TotalSeconds {
+    .ImportanceWrapper {
+        .Importance {
+            font-weight: bold;
+            margin: 0 1rem;
+        }
+    }
+
+    .DifficultyWrapper {
+        .Difficulty {
             font-weight: bold;
             margin: 0 1rem;
         }
