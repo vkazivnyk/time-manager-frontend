@@ -12,6 +12,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import dayjs from 'dayjs';
+import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -290,6 +291,7 @@ export default class HomePage extends Component {
                     onChange={this.handleTaskInputChange}
                 />
                 <div className={Style.select}>
+                    <DateTimePicker />
                     <Select
                         options={this.importanceOptions}
                         defaultValue={this.importanceOptions[0]}
