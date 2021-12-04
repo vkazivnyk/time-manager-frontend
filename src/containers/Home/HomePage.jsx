@@ -27,8 +27,8 @@ export default class HomePage extends Component {
             minDate: dayjs().toDate(),
             currentDate: dayjs().toDate(),
             newTaskName: '',
-            newTaskImportance: '',
             newTaskDeadline: '2021-04-12 07:36:44 AM',
+            newTaskImportance: 0,
             newTaskDifficulty: 0,
             editedTask: '',
         };
@@ -299,7 +299,7 @@ export default class HomePage extends Component {
                     }
                 />
                 <div className={Style.PopupButtonWrapper}>
-                    <Button onClick={this.onPutTask}>Submit</Button>
+                    <Button onClick={this.handleAddTaskSubmit}>Submit</Button>
                 </div>
             </Popup>
         ) : null;
