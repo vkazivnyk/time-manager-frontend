@@ -22,6 +22,9 @@ export default class HomePage extends Component {
             isTaskEditing: false,
             isLoading: false,
             newTaskName: '',
+            newTaskTimeEstimation: '',
+            newTaskDeadline: '2021-04-12 07:36:44 AM',
+            newTaskDifficulty: 0,
         };
 
         this.difficultyOptions = [
@@ -45,7 +48,7 @@ export default class HomePage extends Component {
                     });
                     return;
                 }
-
+                console.log(res.data);
                 this.setState({
                     tasks: res.data.data.task,
                 });
@@ -64,6 +67,38 @@ export default class HomePage extends Component {
         this.setState({
             [name]: value,
         });
+    };
+
+    handleAddTaskSubmit = () => {
+        const {
+            newTaskName,
+            newTaskDeadline,
+            newTaskDifficulty,
+            newTaskTimeEstimation,
+        } = this.state;
+
+        axiosGQLInstance
+            .post('', {
+                query: graphql.addTask({
+                    name: newTaskName,
+                    deadline: newTaskDeadline,
+                    difficulty: newTaskDifficulty,
+                    timeEstimation: newTaskTimeEstimation,
+                }),
+            })
+            .then(res => {
+                if (res.data.errors) {
+                    this.setState({
+                        errors: res.data.errors,
+                    });
+                    return;
+                }
+                const { tasks } = this.state;
+                console.log(res.data.data.addUserTask.task);
+                this.setState({
+                    tasks: [...tasks, res.data.data.addUserTask.task],
+                });
+            });
     };
 
     onDeleteTask = element => {
@@ -98,8 +133,15 @@ export default class HomePage extends Component {
     };
 
     render() {
-        const { tasks, errors, isTaskAdding, isLoading, newTaskName } =
-            this.state;
+        const {
+            tasks,
+            errors,
+            isTaskAdding,
+            isLoading,
+            newTaskName,
+            newTaskTimeEstimation,
+            newTaskDeadline,
+        } = this.state;
 
         const popup = isTaskAdding ? (
             <Popup onDismiss={() => this.setState({ isTaskAdding: false })}>
@@ -111,12 +153,31 @@ export default class HomePage extends Component {
                     name="newTaskName"
                     onChange={this.handleAddTaskInputChange}
                 />
+                <Input
+                    label="Enter a time expectation"
+                    value={newTaskTimeEstimation}
+                    type="text"
+                    id="newTaskTimeEstimation"
+                    name="newTaskTimeEstimation"
+                    onChange={this.handleAddTaskInputChange}
+                />
+                <Input
+                    label="Enter a deadline"
+                    value={newTaskDeadline}
+                    type="text"
+                    id="newTaskDeadline"
+                    name="newTaskDeadline"
+                    onChange={this.handleAddTaskInputChange}
+                />
                 <Select
                     options={this.difficultyOptions}
                     defaultValue={this.difficultyOptions[0]}
+                    onChange={e =>
+                        this.setState({ newTaskDifficulty: e.value })
+                    }
                 />
                 <div className={Style.PopupButtonWrapper}>
-                    <Button>Submit</Button>
+                    <Button onClick={this.handleAddTaskSubmit}>Submit</Button>
                 </div>
             </Popup>
         ) : null;
