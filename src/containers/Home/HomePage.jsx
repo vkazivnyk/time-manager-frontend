@@ -11,17 +11,21 @@ import Tasks from '../Tasks/Tasks';
 import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
+import dayjs from 'dayjs';
 
 export default class HomePage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            allTasks: [],
             tasks: [],
             errors: [],
             isTaskAdding: false,
             isTaskEditing: false,
             isLoading: false,
+            minDate: dayjs().toDate(),
+            currentDate: dayjs().toDate(),
             newTaskName: '',
             newTaskTimeEstimation: '',
             newTaskDeadline: '2021-04-12 07:36:44 AM',
@@ -38,9 +42,39 @@ export default class HomePage extends Component {
     }
 
     componentDidMount() {
+        this.fetchTasks();
+    }
+
+    componentDidUpdate(_, prevState) {
+        const { currentDate, allTasks, minDate } = this.state;
+
+        if (currentDate < minDate) {
+            this.setState(
+                {
+                    minDate: currentDate,
+                },
+                () => this.fetchTasks(),
+            );
+        }
+
+        if (
+            currentDate != prevState.currentDate ||
+            allTasks != prevState.allTasks
+        ) {
+            this.setState({
+                tasks: allTasks.filter(
+                    t => dayjs(t.deadline) > dayjs(currentDate),
+                ),
+            });
+        }
+    }
+
+    fetchTasks() {
+        const { currentDate } = this.state;
+
         axiosGQLInstance
             .post('', {
-                query: graphql.getTasks,
+                query: graphql.getTasks({ endDate: currentDate }),
             })
             .then(res => {
                 if (res.data.errors) {
@@ -51,6 +85,7 @@ export default class HomePage extends Component {
                 }
                 console.log(res.data);
                 this.setState({
+                    allTasks: res.data.data.task,
                     tasks: res.data.data.task,
                 });
             });
@@ -67,6 +102,12 @@ export default class HomePage extends Component {
 
         this.setState({
             [name]: value,
+        });
+    };
+
+    handleCalendarDateChange = e => {
+        this.setState({
+            currentDate: e,
         });
     };
 
@@ -100,17 +141,17 @@ export default class HomePage extends Component {
                     });
                     return;
                 }
-                const { tasks } = this.state;
+                const { allTasks } = this.state;
                 console.log(res.data.data.addUserTask.task);
                 this.setState({
-                    tasks: [...tasks, res.data.data.addUserTask.task],
+                    allTasks: [...allTasks, res.data.data.addUserTask.task],
                     isLoading: false,
                 });
             });
     };
 
     onDeleteTask = element => {
-        const { tasks } = this.state;
+        const { allTasks } = this.state;
         const taskId = element['id'];
 
         this.setState({
@@ -130,11 +171,13 @@ export default class HomePage extends Component {
                     return;
                 }
 
-                const deletedTaskIndex = tasks.findIndex(t => t.id === taskId);
+                const deletedTaskIndex = allTasks.findIndex(
+                    t => t.id === taskId,
+                );
 
-                tasks.splice(deletedTaskIndex, 1);
+                allTasks.splice(deletedTaskIndex, 1);
                 this.setState({
-                    tasks: [...tasks],
+                    allTasks: [...allTasks],
                     isLoading: false,
                 });
             });
@@ -146,6 +189,7 @@ export default class HomePage extends Component {
             errors,
             isTaskAdding,
             isLoading,
+            currentDate,
             newTaskName,
             newTaskTimeEstimation,
             newTaskDeadline,
@@ -203,7 +247,11 @@ export default class HomePage extends Component {
                         className={Style.Tasks}
                         onDeleteTask={this.onDeleteTask}
                     />
-                    <CalendarComponent className={Style.Calendar} />
+                    <CalendarComponent
+                        className={Style.Calendar}
+                        onChange={this.handleCalendarDateChange}
+                        value={currentDate}
+                    />
                 </div>
                 {popup}
                 {isLoading ? (
