@@ -9,6 +9,7 @@ import { authToken } from '../../global/js/authToken';
 import Style from './AuthPage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import Spinner from '../../components/Spinner/Spinner';
+import { Popup } from '../../components/Popup/Popup';
 
 export default class AuthPage extends Component {
     constructor(props) {
@@ -64,7 +65,7 @@ export default class AuthPage extends Component {
     };
 
     render() {
-        const { userName, password, isLoading } = this.state;
+        const { userName, password, isLoading, errors } = this.state;
 
         const spinner = isLoading ? (
             <Backdrop>
@@ -73,38 +74,35 @@ export default class AuthPage extends Component {
         ) : null;
 
         return (
-            <>
-                {spinner}
-                <AuthBox onClick={this.onClickHandler}>
-                    <Input
-                        label="Enter an username"
-                        value={userName}
-                        type="text"
-                        id="userName"
-                        name="userName"
-                        onChange={this.handleInputChange}
-                    />
-                    <Input
-                        label="Enter a password"
-                        value={password}
-                        type="password"
-                        id="password"
-                        name="password"
-                        onChange={this.handleInputChange}
-                    />
-                    <Button onClick={this.onClickHandler}>Submit</Button>
-                    <div className={Style.linkWrapper}>
-                        <Link
-                            to="/register"
-                            style={{
-                                textDecoration: 'none',
-                                color: '#dddddd',
-                            }}>
-                            Register
-                        </Link>
-                    </div>
-                </AuthBox>
-            </>
+            <AuthBox onClick={this.onClickHandler}>
+                <Input
+                    label="Enter an username"
+                    value={userName}
+                    type="text"
+                    id="userName"
+                    name="userName"
+                    onChange={this.handleInputChange}
+                />
+                <Input
+                    label="Enter a password"
+                    value={password}
+                    type="password"
+                    id="password"
+                    name="password"
+                    onChange={this.handleInputChange}
+                />
+                <Button onClick={this.onClickHandler}>Submit</Button>
+                <div className={Style.linkWrapper}>
+                    <Link
+                        to="/register"
+                        style={{
+                            textDecoration: 'none',
+                            color: '#dddddd',
+                        }}>
+                        Register
+                    </Link>
+                </div>
+            </AuthBox>
         );
     }
 }
