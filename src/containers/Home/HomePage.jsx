@@ -28,7 +28,7 @@ export default class HomePage extends Component {
             minDate: dayjs().toDate(),
             currentDate: dayjs().toDate(),
             newTaskName: '',
-            newTaskDeadline: '2021-04-12 07:36:44 AM',
+            newTaskDeadline: dayjs().toDate(),
             newTaskImportance: 0,
             newTaskDifficulty: 0,
             editedTask: '',
@@ -277,9 +277,6 @@ export default class HomePage extends Component {
             isLoading,
             currentDate,
             newTaskName,
-            newTaskImportance,
-            newTaskDeadline,
-            editedTask,
         } = this.state;
 
         const addPopup = isTaskAdding ? (
@@ -387,7 +384,7 @@ export default class HomePage extends Component {
                             this.setState({ errors: [] });
                         }}>
                         {errors.map(element => (
-                            <p>{element.message}</p>
+                            <p key={element.message}>{element.message}</p>
                         ))}
                     </Popup>
                 ) : null}
