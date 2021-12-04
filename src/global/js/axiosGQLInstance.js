@@ -1,101 +1,50 @@
 import axios from 'axios';
+import { authToken } from './authToken';
 import { baseGQLURL } from './config';
-import day from 'dayjs';
 
 const axiosGQLInstance = axios.create({
     baseURL: baseGQLURL,
 });
 
-axiosGQLInstance.interceptors.request.use(req => req);
-// const token = authTokens.get();
-// const sessionId = session.get();
-// req.headers.authorization ??= `Bearer ${token?.authToken}`;
-// req.headers.sessionId = sessionId;
+axiosGQLInstance.interceptors.request.use(req => {
+    const token = authToken.get();
+    req.headers.authorization = `Bearer ${token?.token}`;
 
-axiosGQLInstance.interceptors.response.use(
-    response => {
-        const { data } = response;
+    return req;
+});
 
-        // let errors = null;
+axiosGQLInstance.interceptors.response.use(null, error => {
+    const { response } = error;
 
-        if (
-            !data.errors ||
-            data.errors[0].extensions?.code !== 'AUTH_NOT_AUTHENTICATED'
-        ) {
-            return Promise.resolve(response);
-        }
+    if (!response) {
+        const errors = [
+            {
+                message: 'Unexpected network error',
+            },
+        ];
 
-        // if (
-        //     !authTokens.exists() ||
-        //     day(authTokens.get().expires).isBefore(day())
-        // ) {
-        //     errors = [
-        //         {
-        //             message: 'Authorization error.',
-        //         },
-        //     ];
+        error.response = {
+            data: { errors },
+        };
 
-        //     response.data.errors = errors;
+        return error.response;
+    }
 
-        //     return Promise.resolve(response);
-        // }
+    const errors = [];
 
-        // return refreshRequest
-        //     .send()
-        //     .then(() => {
-        //         const { authToken } = authTokens.get();
-        //         response.config.headers['authorization'] =
-        //             'Bearer ' + authToken;
-        //         return Promise.resolve(
-        //             axiosGQLInstance.request(response.config),
-        //         );
-        //     })
-        //     .catch(() => {
-        //         errors = [
-        //             {
-        //                 message: 'Authorization error.',
-        //             },
-        //         ];
+    if (response.status === 429) {
+        errors.push({
+            message: `Please wait until you can continue working...`,
+        });
+    } else {
+        errors.push({
+            message: `Error ${response.status}`,
+        });
+    }
 
-        //         response.data.errors = errors;
+    response.data = { errors };
 
-        //         return Promise.resolve(response);
-        //     });
-        return null;
-    },
-    error => {
-        const { response } = error;
-
-        if (!response) {
-            const errors = [
-                {
-                    message: 'Unexpected network error',
-                },
-            ];
-
-            error.response = {
-                data: { errors },
-            };
-
-            return error.response;
-        }
-
-        const errors = [];
-
-        if (response.status === 429) {
-            errors.push({
-                message: `Please wait until you can continue working...`,
-            });
-        } else {
-            errors.push({
-                message: `Error ${response.status}`,
-            });
-        }
-
-        response.data = { errors };
-
-        return response;
-    },
-);
+    return response;
+});
 
 export default axiosGQLInstance;
