@@ -1,12 +1,12 @@
 @import '../global/scss/global.scss';
 
 .container {
-    color: $main-color-dark;
     font-family: 'Roboto', sans-serif;
 }
 
 header {
     background-color: $second-color;
+    color: $main-text-color;
     padding: 0.5rem;
     display: flex;
     font-size: 1.2rem;
@@ -17,4 +17,8 @@ header {
         margin-right: auto;
         font-size: 2rem;
     }
+}
+
+main {
+    padding: 1rem 0.5rem 0;
 }
