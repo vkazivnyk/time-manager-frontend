@@ -12,7 +12,7 @@ dayjs.extend(relativeTime);
 const Task = props => {
     const { task, onClickEdit, onClickDelete } = props;
 
-    const { id, name, deadline, totalSeconds, difficulty } = task;
+    const { id, name, deadline, timeEstimation, difficulty } = task;
 
     let difficultyClass = Style.Easy;
 
@@ -24,7 +24,7 @@ const Task = props => {
         difficultyClass = Style.Hard;
     }
 
-    const takesFormat = dayjs.duration(totalSeconds, 'seconds').humanize();
+    const takesFormat = dayjs.duration(timeEstimation, 'seconds').humanize();
     const deadlineFormat = dayjs(deadline).format('DD/MM/YY');
 
     return (
