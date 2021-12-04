@@ -1,29 +1,53 @@
 import React from 'react';
+import Backdrop from '../Backdrop/Backdrop';
 import classes from './BurgerMenu.module.scss';
 
 class BurgerMenu extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { isChecked: false };
     }
     render() {
+        const { isChecked } = this.state;
         return (
             <div className={classes.container}>
-                <input type="checkbox" id="burger" />
-                <label htmlFor="burger" className={classes.burgerIcon}>
+                <input type="checkbox" id="burger" checked={isChecked} />
+                <label
+                    htmlFor="burger"
+                    className={classes.burgerIcon}
+                    onClick={() => {
+                        this.setState({ isChecked: !isChecked });
+                    }}>
                     <span></span>
                     <span></span>
                     <span></span>
                 </label>
                 <nav>
                     <ul>
-                        <li>Link1</li>
-                        <li>Link2</li>
-                        <li>Link3</li>
-                        <li>Link4</li>
-                        <li>Link5</li>
+                        <li>
+                            <a href="#">Link1</a>
+                        </li>
+                        <li>
+                            <a href="#">Link1</a>
+                        </li>
+                        <li>
+                            <a href="#">Link1</a>
+                        </li>
+                        <li>
+                            <a href="#">Link1</a>
+                        </li>
+                        <li>
+                            <a href="#">Link1</a>
+                        </li>
                     </ul>
                 </nav>
+                <div className={classes.backDropWrapper}>
+                    <Backdrop
+                        onClick={() => {
+                            this.setState({ isChecked: !isChecked });
+                        }}
+                    />
+                </div>
             </div>
         );
     }
