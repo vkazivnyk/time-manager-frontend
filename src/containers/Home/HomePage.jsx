@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+import CalendarComponent from '../../components/CalendarComponent/CalendarComponent';
+import Layout from '../../Layout/Layout';
+import Tasks from '../Tasks/Tasks';
 import Style from './HomePage.module.scss';
 
 export default class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: [],
+            tasks: [{}, {}, {}, {}, {}],
             /*Task : {
                 Id: '',
                 UserId: '',
@@ -23,13 +26,12 @@ export default class HomePage extends Component {
         const { tasks, errors } = this.state;
 
         return (
-            <div className={Style.Wrapper}>
-                <div className={Style.TaskWrapper}>
-                    {tasks.map(element => (
-                        <Task />
-                    ))}
+            <Layout>
+                <div className={Style.TasksCalendarWrapper}>
+                    <Tasks tasks={tasks} className={Style.Tasks} />
+                    <CalendarComponent className={Style.Calendar} />
                 </div>
-            </div>
+            </Layout>
         );
     }
 }
