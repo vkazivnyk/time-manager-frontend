@@ -1,6 +1,7 @@
 @import '../../global/scss/global.scss';
 
 .Wrapper {
+    margin-left: 10rem;
     width: 50%;
     align-items: center;
     justify-content: center;
@@ -11,7 +12,7 @@
     max-height: 10rem;
     border: 2px solid;
     border-radius: 10px;
-
+    background-color: $task-color;
     .TaskWrapper {
         width: 80%;
         height: 60%;
@@ -36,13 +37,12 @@
         height: 10rem;
         right: 0px;
         border-radius: 10px;
-        background-color: $main-color;
         background-repeat: no-repeat;
         border: none;
         cursor: pointer;
-
+        background-color: $task-color;
         &:hover {
-            background-color: $main-color-bright;
+            background-color: $task-hover-color;
         }
     }
 }

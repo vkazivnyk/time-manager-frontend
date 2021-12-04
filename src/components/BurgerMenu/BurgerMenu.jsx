@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './BurgerMenu.module.scss';
 
-class BurgerMenu extends React.PureComponent {
+class BurgerMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
