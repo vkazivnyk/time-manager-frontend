@@ -10,6 +10,7 @@ import graphql from '../../global/js/graphql';
 import Tasks from '../Tasks/Tasks';
 import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
+import Backdrop from '../../components/Backdrop/Backdrop';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -77,6 +78,11 @@ export default class HomePage extends Component {
             newTaskTimeEstimation,
         } = this.state;
 
+        this.setState({
+            isLoading: true,
+            isTaskAdding: false,
+        });
+
         axiosGQLInstance
             .post('', {
                 query: graphql.addTask({
@@ -90,6 +96,7 @@ export default class HomePage extends Component {
                 if (res.data.errors) {
                     this.setState({
                         errors: res.data.errors,
+                        isLoading: false,
                     });
                     return;
                 }
@@ -97,6 +104,7 @@ export default class HomePage extends Component {
                 console.log(res.data.data.addUserTask.task);
                 this.setState({
                     tasks: [...tasks, res.data.data.addUserTask.task],
+                    isLoading: false,
                 });
             });
     };
@@ -198,7 +206,11 @@ export default class HomePage extends Component {
                     <CalendarComponent className={Style.Calendar} />
                 </div>
                 {popup}
-                {isLoading ? <Spinner /> : null}
+                {isLoading ? (
+                    <Backdrop>
+                        <Spinner />
+                    </Backdrop>
+                ) : null}
             </>
         );
     }
