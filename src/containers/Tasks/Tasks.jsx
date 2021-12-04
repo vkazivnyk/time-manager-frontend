@@ -10,7 +10,7 @@ export default class Tasks extends Component {
         return (
             <div className={classes.TasksContainer} {...otherProps}>
                 {tasks.map(task => (
-                    <Task key={task.id} />
+                    <Task key={task.id} task={task} />
                 ))}
             </div>
         );
