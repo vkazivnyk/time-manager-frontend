@@ -67,8 +67,8 @@ export default class HomePage extends Component {
         }
 
         if (
-            currentDate != prevState.currentDate ||
-            allTasks != prevState.allTasks
+            currentDate !== prevState.currentDate ||
+            allTasks !== prevState.allTasks
         ) {
             this.setState({
                 tasks: allTasks.filter(
