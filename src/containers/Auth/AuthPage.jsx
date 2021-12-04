@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AuthBox from '../../components/AuthBox/AuthBox';
 import Button from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
+import { Link } from 'react-router-dom';
 import Style from './AuthPage.module.scss';
 
 export default class AuthPage extends Component {
@@ -52,6 +53,16 @@ export default class AuthPage extends Component {
                     onChange={this.handleInputChange}
                 />
                 <Button onClick={this.onClickHandler}>Submit</Button>
+                <div className={Style.linkWrapper}>
+                    <Link
+                        to="/register"
+                        style={{
+                            textDecoration: 'none',
+                            color: '#dddddd',
+                        }}>
+                        Register
+                    </Link>
+                </div>
             </AuthBox>
         );
     }
