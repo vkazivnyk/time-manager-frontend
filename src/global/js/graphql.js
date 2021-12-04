@@ -4,7 +4,7 @@ const graphql = {
             id
             name
             deadline
-            totalSeconds
+            timeEstimation
             difficulty
         }
     }`,
