@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Style from './RegisterPage.module.scss';
 import Spinner from '../../components/Spinner/Spinner';
 import Backdrop from '../../components/Backdrop/Backdrop';
+import { Popup } from '../../components/Popup/Popup';
 import axiosRESTInstance from '../../global/js/axiosRESTInstance';
 import { credentials } from '../../global/js/credentials';
 import { authToken } from '../../global/js/authToken';
@@ -19,12 +20,12 @@ export default class RegisterPage extends Component {
             passwordConfirm: '',
             username: '',
             isLoading: false,
+            errors: [],
         };
     }
 
     onClickHandler = () => {
-        const { email, username, password, passwordConfirm, isLoading } =
-            this.state;
+        const { email, username, password, passwordConfirm } = this.state;
 
         const { onLogin } = this.props;
 
@@ -45,7 +46,7 @@ export default class RegisterPage extends Component {
                 this.setState({
                     isLoading: false,
                 });
-
+                console.log(res.data);
                 credentials.set(username, email);
                 authToken.set(token);
 
@@ -68,8 +69,14 @@ export default class RegisterPage extends Component {
     };
 
     render() {
-        const { email, username, password, passwordConfirm, isLoading } =
-            this.state;
+        const {
+            email,
+            username,
+            password,
+            passwordConfirm,
+            isLoading,
+            errors,
+        } = this.state;
 
         const spinner = isLoading ? (
             <Backdrop>
@@ -126,6 +133,16 @@ export default class RegisterPage extends Component {
                             Log in
                         </Link>
                     </div>
+                    {errors.length ? (
+                        <Popup
+                            onDismiss={() => {
+                                this.setState({ errors: [] });
+                            }}>
+                            {errors.map(element => (
+                                <p>{element.message}</p>
+                            ))}
+                        </Popup>
+                    ) : null}
                 </AuthBox>
             </>
         );

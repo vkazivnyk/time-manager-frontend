@@ -12,6 +12,11 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
+        if (!authToken.valid()) {
+            credentials.reset();
+            authToken.reset();
+        }
+
         this.state = {
             currentUser: credentials.get(),
             isAuthenticated: authToken.valid(),
@@ -40,7 +45,7 @@ export default class App extends Component {
                 ) : (
                     <Switch>
                         <Route path="/auth">
-                            <AuthPage />
+                            <AuthPage onLogin={this.onLogin} />
                         </Route>
                         <Route path="/register">
                             <Register onLogin={this.onLogin} />

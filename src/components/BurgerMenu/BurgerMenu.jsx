@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { authToken } from '../../global/js/authToken';
 import Backdrop from '../Backdrop/Backdrop';
 import classes from './BurgerMenu.module.scss';
 
@@ -9,6 +11,24 @@ class BurgerMenu extends React.Component {
     }
     render() {
         const { isChecked } = this.state;
+
+        const isAuthenticated = authToken.valid();
+
+        const links = isAuthenticated ? (
+            <li>
+                <Link to="/home">Home</Link>
+            </li>
+        ) : (
+            <>
+                <li>
+                    <Link to="/register">Sign up</Link>
+                </li>
+                <li>
+                    <Link to="/auth">Sign in</Link>
+                </li>
+            </>
+        );
+
         return (
             <div className={classes.container}>
                 <input type="checkbox" id="burger" defaultChecked={isChecked} />
@@ -16,6 +36,7 @@ class BurgerMenu extends React.Component {
                     htmlFor="burger"
                     className={classes.burgerIcon}
                     onClick={() => {
+                        console.log('Hi');
                         this.setState({ isChecked: !isChecked });
                     }}>
                     <span></span>
@@ -23,23 +44,7 @@ class BurgerMenu extends React.Component {
                     <span></span>
                 </label>
                 <nav>
-                    <ul>
-                        <li>
-                            <a href="#">Link1</a>
-                        </li>
-                        <li>
-                            <a href="#">Link1</a>
-                        </li>
-                        <li>
-                            <a href="#">Link1</a>
-                        </li>
-                        <li>
-                            <a href="#">Link1</a>
-                        </li>
-                        <li>
-                            <a href="#">Link1</a>
-                        </li>
-                    </ul>
+                    <ul>{links}</ul>
                 </nav>
                 <div className={classes.backDropWrapper}>
                     <Backdrop
