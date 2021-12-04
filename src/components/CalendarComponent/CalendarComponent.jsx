@@ -5,11 +5,11 @@ import classes from './CalendarComponent.scss';
 
 class CalendarComponent extends React.Component {
     render() {
-        const { ...otherProps } = this.props;
+        const { onChange, value, ...otherProps } = this.props;
 
         return (
             <div {...otherProps}>
-                <Calendar />
+                <Calendar onChange={onChange} value={value} />
             </div>
         );
     }

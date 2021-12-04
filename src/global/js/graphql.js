@@ -1,20 +1,22 @@
+const dayjs = require('dayjs');
+
 const graphql = {
-    getTasks: `query {
-        task {
+    getTasks: ({ endDate }) => `query {
+        task(where: { deadline : { gte : "${dayjs(endDate).toISOString()}" }}) {
             id
             name
             deadline
-            timeEstimation
+            importance
             difficulty
         }
     }`,
 
-    addTask: ({ name, deadline, timeEstimation, difficulty }) =>
+    addTask: ({ name, deadline, importance, difficulty }) =>
         `mutation {
             addUserTask(input: {
             name: "${name}"
             deadline: "${deadline}",
-            timeEstimation: ${timeEstimation || 0},
+            importance: ${importance},
             difficulty: ${difficulty}
             })
             {
@@ -22,7 +24,7 @@ const graphql = {
                     id
                     name
                     deadline
-                    timeEstimation
+                    importance
                     difficulty
                     user {
                         id
@@ -43,19 +45,19 @@ const graphql = {
                     id
                     name
                     deadline
-                    timeEstimation
+                    importance
                     difficulty
                 }
             }
     }`,
 
-    putTask: ({ id, name, deadline, timeEstimation, difficulty }) =>
+    putTask: ({ id, name, deadline, importance, difficulty }) =>
         `mutation {
             putUserTask(input: {
                 id: "${id}",
                 name: "${name}",
                 deadline: "${deadline}",
-                timeEstimation: ${timeEstimation},
+                importance: ${importance},
                 difficulty: ${difficulty}
             })
             {
@@ -63,7 +65,7 @@ const graphql = {
                     id
                     name
                     deadline
-                    timeEstimation
+                    importance
                     difficulty
                 }
             }

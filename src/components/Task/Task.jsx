@@ -12,30 +12,59 @@ dayjs.extend(relativeTime);
 const Task = props => {
     const { task, onPutTask, onDeleteTask } = props;
 
-    const { name, deadline, timeEstimation, difficulty } = task;
+    const { name, deadline, importance, difficulty } = task;
 
-    let difficultyClass = Style.Easy;
+    const expiredClass = dayjs(task.deadline) < dayjs() ? Style.Expired : null;
+
+    let difficultyClass = Style.Easier;
+
+
+    if (difficulty === 1) {
+        difficultyClass = Style.Easy;
+    }
 
     if (difficulty === 2) {
         difficultyClass = Style.Medium;
     }
 
-    if (difficulty === 3 || difficulty === 4) {
+    if (difficulty === 3) {
         difficultyClass = Style.Hard;
     }
 
-    const takesFormat = dayjs.duration(timeEstimation, 'seconds').humanize();
+    if (difficulty === 4) {
+        difficultyClass = Style.Harder;
+    }
+
+    let importanceValue = 'No importance';
+
+    if (importance === 1) {
+        importanceValue = 'Low importance';
+    }
+
+    if (importance === 2) {
+        importanceValue = 'Middle importance';
+    }
+
+    if (importance === 3) {
+        importanceValue = 'High importance';
+    }
+
+    if (importance === 4) {
+        importanceValue = 'Extreme importance';
+    }
+
     const deadlineFormat = dayjs(deadline).format('DD/MM/YY');
 
     return (
-        <div className={`${Style.TaskWrapper} ${difficultyClass}`}>
+        <div
+            className={`${Style.TaskWrapper} ${difficultyClass} ${expiredClass}`}>
             <h2 className={Style.TaskName}>{name}</h2>
             <div className={Style.TaskItemsContainer}>
                 <div className={Style.TaskInfoContainer}>
                     <div className={Style.TotalSecondsWrapper}>
-                        Takes:
+                        Importance:
                         <span className={Style.TotalSeconds}>
-                            {takesFormat}
+                            {importanceValue}
                         </span>
                     </div>
                     <div className={Style.DeadlineWrapper}>

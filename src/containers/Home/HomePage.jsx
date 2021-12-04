@@ -11,21 +11,24 @@ import Tasks from '../Tasks/Tasks';
 import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
-import Message from '../../components/Message/Message';
+import dayjs from 'dayjs';
 
 export default class HomePage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            allTasks: [],
             tasks: [],
             errors: [],
             isTaskAdding: false,
             isTaskEditing: false,
             isLoading: false,
+            minDate: dayjs().toDate(),
+            currentDate: dayjs().toDate(),
             newTaskName: '',
-            newTaskTimeEstimation: '',
             newTaskDeadline: '2021-04-12 07:36:44 AM',
+            newTaskImportance: 0,
             newTaskDifficulty: 0,
             editedTask: '',
         };
@@ -37,23 +40,68 @@ export default class HomePage extends Component {
             { value: 3, label: 'Hard' },
             { value: 4, label: 'Harder' },
         ];
+
+        this.importanceOptions = [
+            { value: 0, label: 'No importance' },
+            { value: 1, label: 'Low importance' },
+            { value: 2, label: 'Middle importance' },
+            { value: 3, label: 'High importance' },
+            { value: 4, label: 'Extreme importance' },
+        ];
     }
 
     componentDidMount() {
+        this.fetchTasks();
+    }
+
+    componentDidUpdate(_, prevState) {
+        const { currentDate, allTasks, minDate } = this.state;
+
+        if (currentDate < minDate) {
+            this.setState(
+                {
+                    minDate: currentDate,
+                },
+                () => this.fetchTasks(),
+            );
+        }
+
+        if (
+            currentDate != prevState.currentDate ||
+            allTasks != prevState.allTasks
+        ) {
+            this.setState({
+                tasks: allTasks.filter(
+                    t => dayjs(t.deadline) > dayjs(currentDate),
+                ),
+            });
+        }
+    }
+
+    fetchTasks() {
+        const { currentDate } = this.state;
+
+        this.setState({
+            isLoading: true,
+        });
+
         axiosGQLInstance
             .post('', {
-                query: graphql.getTasks,
+                query: graphql.getTasks({ endDate: currentDate }),
             })
             .then(res => {
                 if (res.data.errors) {
                     this.setState({
                         errors: res.data.errors,
+                        isLoading: false,
                     });
                     return;
                 }
                 console.log(res.data);
                 this.setState({
+                    allTasks: res.data.data.task,
                     tasks: res.data.data.task,
+                    isLoading: false,
                 });
             });
     }
@@ -72,12 +120,18 @@ export default class HomePage extends Component {
         });
     };
 
+    handleCalendarDateChange = e => {
+        this.setState({
+            currentDate: e,
+        });
+    };
+
     handleAddTaskSubmit = () => {
         const {
             newTaskName,
             newTaskDeadline,
             newTaskDifficulty,
-            newTaskTimeEstimation,
+            newTaskImportance,
         } = this.state;
 
         this.setState({
@@ -91,7 +145,7 @@ export default class HomePage extends Component {
                     name: newTaskName,
                     deadline: newTaskDeadline,
                     difficulty: newTaskDifficulty,
-                    timeEstimation: newTaskTimeEstimation,
+                    importance: newTaskImportance,
                 }),
             })
             .then(res => {
@@ -102,17 +156,17 @@ export default class HomePage extends Component {
                     });
                     return;
                 }
-                const { tasks } = this.state;
+                const { allTasks } = this.state;
                 console.log(res.data.data.addUserTask.task);
                 this.setState({
-                    tasks: [...tasks, res.data.data.addUserTask.task],
+                    allTasks: [...allTasks, res.data.data.addUserTask.task],
                     isLoading: false,
                 });
             });
     };
 
     onDeleteTask = element => {
-        const { tasks } = this.state;
+        const { allTasks } = this.state;
         const taskId = element['id'];
 
         this.setState({
@@ -132,11 +186,13 @@ export default class HomePage extends Component {
                     return;
                 }
 
-                const deletedTaskIndex = tasks.findIndex(t => t.id === taskId);
+                const deletedTaskIndex = allTasks.findIndex(
+                    t => t.id === taskId,
+                );
 
-                tasks.splice(deletedTaskIndex, 1);
+                allTasks.splice(deletedTaskIndex, 1);
                 this.setState({
-                    tasks: [...tasks],
+                    allTasks: [...allTasks],
                     isLoading: false,
                 });
             })
@@ -155,7 +211,7 @@ export default class HomePage extends Component {
             newTaskName,
             newTaskDeadline,
             newTaskDifficulty,
-            newTaskTimeEstimation,
+            newTaskImportance,
             editedTask,
             tasks,
         } = this.state;
@@ -170,7 +226,7 @@ export default class HomePage extends Component {
             name: newTaskName,
             deadline: newTaskDeadline,
             difficulty: newTaskDifficulty,
-            timeEstimation: newTaskTimeEstimation,
+            importance: newTaskImportance,
         };
 
         axiosGQLInstance
@@ -209,8 +265,9 @@ export default class HomePage extends Component {
             isTaskAdding,
             isTaskEditing,
             isLoading,
+            currentDate,
             newTaskName,
-            newTaskTimeEstimation,
+            newTaskImportance,
             newTaskDeadline,
         } = this.state;
 
@@ -225,20 +282,19 @@ export default class HomePage extends Component {
                     onChange={this.handleTaskInputChange}
                 />
                 <Input
-                    label="Enter a time expectation"
-                    value={newTaskTimeEstimation}
-                    type="text"
-                    id="newTaskTimeEstimation"
-                    name="newTaskTimeEstimation"
-                    onChange={this.handleTaskInputChange}
-                />
-                <Input
                     label="Enter a deadline"
                     value={newTaskDeadline}
                     type="text"
                     id="newTaskDeadline"
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
+                />
+                <Select
+                    options={this.importanceOptions}
+                    defaultValue={this.importanceOptions[0]}
+                    onChange={e =>
+                        this.setState({ newTaskImportance: e.value })
+                    }
                 />
                 <Select
                     options={this.difficultyOptions}
@@ -248,7 +304,7 @@ export default class HomePage extends Component {
                     }
                 />
                 <div className={Style.PopupButtonWrapper}>
-                    <Button onClick={this.onPutTask}>Submit</Button>
+                    <Button onClick={this.handleAddTaskSubmit}>Submit</Button>
                 </div>
             </Popup>
         ) : null;
@@ -264,20 +320,19 @@ export default class HomePage extends Component {
                     onChange={this.handleTaskInputChange}
                 />
                 <Input
-                    label="Enter a time expectation"
-                    value={newTaskTimeEstimation}
-                    type="text"
-                    id="newTaskTimeEstimation"
-                    name="newTaskTimeEstimation"
-                    onChange={this.handleTaskInputChange}
-                />
-                <Input
                     label="Enter a deadline"
                     value={newTaskDeadline}
                     type="text"
                     id="newTaskDeadline"
                     name="newTaskDeadline"
                     onChange={this.handleTaskInputChange}
+                />
+                <Select
+                    options={this.importanceOptions}
+                    defaultValue={this.importanceOptions[0]}
+                    onChange={e =>
+                        this.setState({ newTaskImportance: e.value })
+                    }
                 />
                 <Select
                     options={this.difficultyOptions}
@@ -306,7 +361,11 @@ export default class HomePage extends Component {
                         onDeleteTask={this.onDeleteTask}
                         onPutTask={this.onPutTask}
                     />
-                    <CalendarComponent className={Style.Calendar} />
+                    <CalendarComponent
+                        className={Style.Calendar}
+                        onChange={this.handleCalendarDateChange}
+                        value={currentDate}
+                    />
                 </div>
                 {addPopup}
                 {putPopup}
