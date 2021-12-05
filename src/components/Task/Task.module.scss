@@ -17,40 +17,247 @@
     @media screen and (max-width: 68.75rem) {
         width: 100%;
     }
-}
-.TaskName {
-    text-align: center;
-    padding: 1rem 0 0.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: relative;
+
+    .TaskName {
+        text-align: center;
+        padding: 1rem 0 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            height: 2px;
+            left: 20%;
+            right: 20%;
+            background-color: $task-hover-color;
+        }
+    }
+
+    .TaskItemsContainer {
+        padding: 0.5rem 0;
+        align-items: center;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: auto;
+    }
+
+    .ButtonsContainer {
+        padding-top: 0.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .PriorityEvaluationWrapper {
+        color: $main-text-color;
+        font-size: 1.3rem;
+        flex: 1 1;
+
+        .Priority {
+            display: inline-block;
+            padding: 0.3rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            color: $priority-color;
+            background-color: $priority-bg-color;
+        }
+    }
+
+    .AvgTimeEvaluationWrapper {
+        color: $main-text-color;
+        font-size: 1.3rem;
+        flex: 1 1;
+        text-align: right;
+
+        .AvgTime {
+            display: inline-block;
+            padding: 0.3rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            color: $avg-time-color;
+            background-color: $avg-time-bg-color;
+        }
+    }
+
+    button {
+        position: relative;
+        width: 4rem;
+        height: 4rem;
+        font-size: 1.5rem;
+        right: 0px;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        background-color: $task-color;
+        transition: 0.2s;
+
+        &:hover {
+            background-color: $task-hover-color;
+        }
+
+        .Put,
+        .Delete {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .Delete {
+            color: $task-delete-color;
+        }
+    }
+
+    &.Expired {
+        &::before {
+            content: '(Expired)';
+            position: absolute;
+            font-weight: bold;
+            letter-spacing: 0.1rem;
+            top: 1rem;
+            right: 1rem;
+            left: initial;
+            bottom: initial;
+            color: $expired-color;
+            filter: blur(0px);
+            z-index: 1;
+        }
+
+        &::after {
+            content: none;
+        }
+    }
+
+    &:not(.Expired):before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        bottom: 50%;
+        left: -5px;
+        right: -5px;
+        z-index: -1;
+        border-radius: 10px;
+        filter: blur(5px);
+    }
 
     &::after {
         content: '';
         position: absolute;
-        bottom: 2px;
-        height: 2px;
-        left: 20%;
-        right: 20%;
-        background-color: $task-hover-color;
+        top: 50%;
+        bottom: -5px;
+        left: -5px;
+        right: -5px;
+        z-index: -1;
+        border-radius: 10px;
+        filter: blur(5px);
     }
-}
 
-.TaskItemsContainer {
-    padding: 0.5rem 0;
-    align-items: center;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: auto;
-}
+    &[data-importance='0'] {
+        .Importance {
+            color: $no-importance-color;
+        }
 
-.ButtonsContainer {
-    padding-top: 0.5rem;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+        &:not(.Expired)::before {
+            background-color: $no-importance-color;
+        }
+    }
+
+    &[data-importance='1'] {
+        .Importance {
+            color: $low-importance-color;
+        }
+
+        &:not(.Expired)::before {
+            background-color: $low-importance-color;
+        }
+    }
+
+    &[data-importance='2'] {
+        .Importance {
+            color: $medium-importance-color;
+        }
+
+        &:not(.Expired)::before {
+            background-color: $medium-importance-color;
+        }
+    }
+
+    &[data-importance='3'] {
+        .Importance {
+            color: $high-importance-color;
+        }
+
+        &:not(.Expired)::before {
+            background-color: $high-importance-color;
+        }
+    }
+
+    &[data-importance='4'] {
+        .Importance {
+            color: $extreme-importance-color;
+        }
+
+        &:not(.Expired)::before {
+            background-color: $extreme-importance-color;
+        }
+    }
+
+    &[data-difficulty='0'] {
+        .Difficulty {
+            color: $easier-color;
+        }
+
+        &::after {
+            background-color: $easier-color;
+        }
+    }
+
+    &[data-difficulty='1'] {
+        .Difficulty {
+            color: $easy-color;
+        }
+
+        &::after {
+            background-color: $easy-color;
+        }
+    }
+
+    &[data-difficulty='2'] {
+        .Difficulty {
+            color: $medium-color;
+        }
+
+        &::after {
+            background-color: $medium-color;
+        }
+    }
+
+    &[data-difficulty='3'] {
+        .Difficulty {
+            color: $hard-color;
+        }
+
+        &::after {
+            background-color: $hard-color;
+        }
+    }
+
+    &[data-difficulty='4'] {
+        .Difficulty {
+            color: $harder-color;
+        }
+
+        &::after {
+            background-color: $harder-color;
+        }
+    }
 }
 
 .Stats {
@@ -68,212 +275,6 @@
             padding: 0.5rem 0;
             justify-content: space-between;
         }
-    }
-}
-
-.PriorityEvaluationWrapper {
-    color: $main-text-color;
-    font-size: 1.3rem;
-    flex: 1 1;
-
-    .Priority {
-        display: inline-block;
-        padding: 0.3rem;
-        margin: 0 0.5rem;
-        border-radius: 5px;
-        color: $priority-color;
-        background-color: $priority-bg-color;
-    }
-}
-
-.AvgTimeEvaluationWrapper {
-    color: $main-text-color;
-    font-size: 1.3rem;
-    flex: 1 1;
-    text-align: right;
-
-    .AvgTime {
-        display: inline-block;
-        padding: 0.3rem;
-        margin: 0 0.5rem;
-        border-radius: 5px;
-        color: $avg-time-color;
-        background-color: $avg-time-bg-color;
-    }
-}
-
-button {
-    position: relative;
-    width: 4rem;
-    height: 4rem;
-    font-size: 1.5rem;
-    right: 0px;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    background-color: $task-color;
-    transition: 0.2s;
-
-    &:hover {
-        background-color: $task-hover-color;
-    }
-
-    .Put,
-    .Delete {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .Delete {
-        color: $task-delete-color;
-    }
-}
-
-&.Expired {
-    &::before {
-        content: '(Expired)';
-        position: absolute;
-        font-weight: bold;
-        letter-spacing: 0.1rem;
-        top: 1rem;
-        right: 1rem;
-        left: initial;
-        bottom: initial;
-        color: $expired-color;
-        filter: blur(0px);
-        z-index: 1;
-    }
-
-    &::after {
-        content: none;
-    }
-}
-
-&:not(.Expired):before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    bottom: 50%;
-    left: -5px;
-    right: -5px;
-    z-index: -1;
-    border-radius: 10px;
-    filter: blur(5px);
-}
-
-&::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    bottom: -5px;
-    left: -5px;
-    right: -5px;
-    z-index: -1;
-    border-radius: 10px;
-    filter: blur(5px);
-}
-
-&[data-importance='0'] {
-    .Importance {
-        color: $no-importance-color;
-    }
-
-    &:not(.Expired)::before {
-        background-color: $no-importance-color;
-    }
-}
-
-&[data-importance='1'] {
-    .Importance {
-        color: $low-importance-color;
-    }
-
-    &:not(.Expired)::before {
-        background-color: $low-importance-color;
-    }
-}
-
-&[data-importance='2'] {
-    .Importance {
-        color: $medium-importance-color;
-    }
-
-    &:not(.Expired)::before {
-        background-color: $medium-importance-color;
-    }
-}
-
-&[data-importance='3'] {
-    .Importance {
-        color: $high-importance-color;
-    }
-
-    &:not(.Expired)::before {
-        background-color: $high-importance-color;
-    }
-}
-
-&[data-importance='4'] {
-    .Importance {
-        color: $extreme-importance-color;
-    }
-
-    &:not(.Expired)::before {
-        background-color: $extreme-importance-color;
-    }
-}
-
-&[data-difficulty='0'] {
-    .Difficulty {
-        color: $easier-color;
-    }
-
-    &::after {
-        background-color: $easier-color;
-    }
-}
-
-&[data-difficulty='1'] {
-    .Difficulty {
-        color: $easy-color;
-    }
-
-    &::after {
-        background-color: $easy-color;
-    }
-}
-
-&[data-difficulty='2'] {
-    .Difficulty {
-        color: $medium-color;
-    }
-
-    &::after {
-        background-color: $medium-color;
-    }
-}
-
-&[data-difficulty='3'] {
-    .Difficulty {
-        color: $hard-color;
-    }
-
-    &::after {
-        background-color: $hard-color;
-    }
-}
-
-&[data-difficulty='4'] {
-    .Difficulty {
-        color: $harder-color;
-    }
-
-    &::after {
-        background-color: $harder-color;
     }
 }
 
