@@ -10,6 +10,7 @@ import { Popup } from '../../components/Popup/Popup';
 import axiosRESTInstance from '../../global/js/axiosRESTInstance';
 import { credentials } from '../../global/js/credentials';
 import { authToken } from '../../global/js/authToken';
+import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 
 export default class RegisterPage extends Component {
     constructor(props) {
@@ -133,16 +134,7 @@ export default class RegisterPage extends Component {
                             Log in
                         </Link>
                     </div>
-                    {errors.length ? (
-                        <Popup
-                            onDismiss={() => {
-                                this.setState({ errors: [] });
-                            }}>
-                            {errors.map(element => (
-                                <p key={element.message}>{element.message}</p>
-                            ))}
-                        </Popup>
-                    ) : null}
+                    <ErrorHandler errors={this.errors} />
                 </AuthBox>
             </>
         );
