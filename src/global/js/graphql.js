@@ -10,6 +10,7 @@ const graphql = {
             importance
             difficulty
             priorityEvaluation
+            timeEvaluation
         }
     }`,
 
@@ -29,6 +30,7 @@ const graphql = {
                     importance
                     difficulty
                     priorityEvaluation
+                    timeEvaluation
                     user {
                         id
                         email
@@ -51,6 +53,7 @@ const graphql = {
                     importance
                     difficulty
                     priorityEvaluation
+                    timeEvaluation
                 }
             }
     }`,
@@ -72,6 +75,7 @@ const graphql = {
                     importance
                     difficulty
                     priorityEvaluation
+                    timeEvaluation
                 }
             }
     }`,

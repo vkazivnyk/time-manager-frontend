@@ -56,6 +56,32 @@
     .PriorityEvaluationWrapper {
         color: $main-text-color;
         font-size: 1.3rem;
+        flex: 1 1;
+
+        .Priority {
+            display: inline-block;
+            padding: 0.3rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            color: $priority-color;
+            background-color: $priority-bg-color;
+        }
+    }
+
+    .AvgTimeEvaluationWrapper {
+        color: $main-text-color;
+        font-size: 1.3rem;
+        flex: 1 1;
+        text-align: right;
+
+        .AvgTime {
+            display: inline-block;
+            padding: 0.3rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            color: $avg-time-color;
+            background-color: $avg-time-bg-color;
+        }
     }
 
     button {
@@ -230,6 +256,24 @@
 
         &::after {
             background-color: $harder-color;
+        }
+    }
+}
+
+.Stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 1rem;
+
+    @media screen and (max-width: 25rem) {
+        flex-direction: column;
+
+        .PriorityEvaluationWrapper,
+        .AvgTimeEvaluationWrapper {
+            display: flex;
+            padding: 0.5rem 0;
+            justify-content: space-between;
         }
     }
 }
