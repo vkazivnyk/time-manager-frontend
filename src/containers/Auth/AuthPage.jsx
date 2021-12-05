@@ -9,7 +9,7 @@ import { authToken } from '../../global/js/authToken';
 import Style from './AuthPage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import Spinner from '../../components/Spinner/Spinner';
-import ErrorHandler from '../components/ErrorHandler/ErrorHandler';
+import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 
 export default class AuthPage extends Component {
     constructor(props) {

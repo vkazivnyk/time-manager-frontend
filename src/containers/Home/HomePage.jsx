@@ -13,7 +13,7 @@ import Style from './HomePage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import dayjs from 'dayjs';
 import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
-import ErrorHandler from '../components/ErrorHandler/ErrorHandler';
+import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 
 export default class HomePage extends Component {
     constructor(props) {
