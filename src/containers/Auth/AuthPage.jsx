@@ -102,6 +102,16 @@ export default class AuthPage extends Component {
                         Register
                     </Link>
                 </div>
+                {errors.length ? (
+                    <Popup
+                        onDismiss={() => {
+                            this.setState({ errors: [] });
+                        }}>
+                        {errors.map(element => (
+                            <p>{element.message}</p>
+                        ))}
+                    </Popup>
+                ) : null}
             </AuthBox>
         );
     }

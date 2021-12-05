@@ -30,11 +30,18 @@ export default class App extends Component {
         });
     };
 
+    onLogout = () => {
+        this.setState({
+            currentUser: null,
+            isAuthenticated: false,
+        });
+    };
+
     render() {
         const { isAuthenticated } = this.state;
 
         return (
-            <Layout>
+            <Layout onLogout={this.onLogout}>
                 {isAuthenticated ? (
                     <Switch>
                         <Route path="/home" exact>
