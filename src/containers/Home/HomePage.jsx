@@ -13,6 +13,7 @@ import Style from './HomePage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import dayjs from 'dayjs';
 import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
+import ErrorHandler from '../components/ErrorHandler/ErrorHandler';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -378,16 +379,7 @@ export default class HomePage extends Component {
                         <Spinner />
                     </Backdrop>
                 ) : null}
-                {errors.length ? (
-                    <Popup
-                        onDismiss={() => {
-                            this.setState({ errors: [] });
-                        }}>
-                        {errors.map(element => (
-                            <p key={element.message}>{element.message}</p>
-                        ))}
-                    </Popup>
-                ) : null}
+                <ErrorHandler errors={this.errors} />
             </>
         );
     }

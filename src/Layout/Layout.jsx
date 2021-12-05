@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import classes from './Layout.module.scss';
 import axios from 'axios';
 import { credentials } from '../global/js/credentials';
-import { Popup } from '../components/Popup/Popup';
 import Spinner from '../components/Spinner/Spinner';
 import Backdrop from '../components/Backdrop/Backdrop';
 import axiosRESTInstance from '../global/js/axiosRESTInstance';
+import ErrorHandler from '../components/ErrorHandler/ErrorHandler';
 
 class Layout extends React.Component {
     constructor(props) {
@@ -73,16 +73,7 @@ class Layout extends React.Component {
                         <Spinner />
                     </Backdrop>
                 ) : null}
-                {errors?.length ? (
-                    <Popup
-                        onDismiss={() => {
-                            this.setState({ errors: [] });
-                        }}>
-                        {errors?.map(element => (
-                            <p key={element.message}>{element.message}</p>
-                        ))}
-                    </Popup>
-                ) : null}
+                <ErrorHandler errors={this.errors} />
             </div>
         );
     }
