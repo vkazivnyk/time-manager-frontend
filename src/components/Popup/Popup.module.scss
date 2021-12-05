@@ -4,6 +4,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    width: 60%;
     transform: translate(-50%, -50%);
     background-color: $main-color-bright;
     z-index: 100;
@@ -11,4 +12,16 @@
     border-radius: 10px;
     text-align: center;
     color: $second-color;
+
+    @media screen and (max-width: 56.25rem) {
+        width: 70%;
+    }
+
+    @media screen and (max-width: 50rem) {
+        width: 80%;
+    }
+
+    @media screen and (max-width: 43.75rem) {
+        width: 100%;
+    }
 }
