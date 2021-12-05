@@ -62,7 +62,7 @@ class Layout extends React.Component {
         return (
             <div className={classes.container}>
                 <header>
-                    <BurgerMenu />
+                    <BurgerMenu logoutReguest={this.logoutReguest} />
                     <h1>Time Manager</h1>
                     {logout}
                 </header>
