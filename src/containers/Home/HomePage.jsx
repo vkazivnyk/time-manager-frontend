@@ -233,8 +233,8 @@ export default class HomePage extends Component {
         });
 
         const newTask = {
-            id: editedTask['id'],
-            name: newTaskName,
+            id: editedTask.id,
+            name: editedTask.name,
             deadline: newTaskDeadline,
             difficulty: newTaskDifficulty,
             importance: newTaskImportance,
@@ -287,6 +287,7 @@ export default class HomePage extends Component {
             isLoading,
             currentDate,
             newTaskName,
+            editedTask,
         } = this.state;
 
         const addPopup = isTaskAdding ? (
@@ -330,19 +331,23 @@ export default class HomePage extends Component {
             <Popup onDismiss={() => this.setState({ isTaskEditing: false })}>
                 <Input
                     label="Enter a task name"
-                    value={newTaskName}
-                    placeholder="New task message"
+                    value={editedTask.name}
                     type="text"
                     id="newTaskName"
                     name="newTaskName"
                     onChange={this.handleTaskInputChange}
                 />
                 <div className={Style.deadlineWrapper}> Enter deadline</div>
-                <DateTimePicker getDate={this.getDate} />
+                <DateTimePicker
+                    currentDate={editedTask.deadline}
+                    getDate={this.getDate}
+                />
                 <div className={Style.select}>
                     <Select
                         options={this.importanceOptions}
-                        defaultValue={this.importanceOptions[0]}
+                        defaultValue={
+                            this.importanceOptions[editedTask.importance]
+                        }
                         onChange={e =>
                             this.setState({ newTaskImportance: e.value })
                         }
@@ -350,7 +355,7 @@ export default class HomePage extends Component {
                 </div>
                 <Select
                     options={this.difficultyOptions}
-                    defaultValue={this.difficultyOptions[0]}
+                    defaultValue={this.difficultyOptions[editedTask.difficulty]}
                     onChange={e =>
                         this.setState({ newTaskDifficulty: e.value })
                     }
