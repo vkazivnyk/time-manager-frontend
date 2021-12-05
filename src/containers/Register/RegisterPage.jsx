@@ -139,7 +139,7 @@ export default class RegisterPage extends Component {
                                 this.setState({ errors: [] });
                             }}>
                             {errors.map(element => (
-                                <p>{element.message}</p>
+                                <p key={element.message}>{element.message}</p>
                             ))}
                         </Popup>
                     ) : null}
