@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import advanced from 'dayjs/plugin/advancedFormat';
 import React from 'react';
 import { FaPen, FaTimes } from 'react-icons/fa';
 
@@ -8,6 +9,7 @@ import Style from './Task.module.scss';
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
+dayjs.extend(advanced);
 
 const Task = props => {
     const { task, onPutTask, onDeleteTask } = props;
@@ -59,7 +61,7 @@ const Task = props => {
         importanceValue = 'Extreme importance';
     }
 
-    const deadlineFormat = dayjs(deadline).format('DD MMM YY (HH:MM)');
+    const deadlineFormat = dayjs(deadline).format('DD MMM YY HH:mm (Z)');
 
     return (
         <div
