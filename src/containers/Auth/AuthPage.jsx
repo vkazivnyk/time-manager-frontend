@@ -9,6 +9,7 @@ import { authToken } from '../../global/js/authToken';
 import Style from './AuthPage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import Spinner from '../../components/Spinner/Spinner';
+import { Popup } from '../../components/Popup/Popup';
 
 export default class AuthPage extends Component {
     constructor(props) {
@@ -64,7 +65,7 @@ export default class AuthPage extends Component {
     };
 
     render() {
-        const { userName, password, isLoading } = this.state;
+        const { userName, password, isLoading, errors } = this.state;
 
         const spinner = isLoading ? (
             <Backdrop>
