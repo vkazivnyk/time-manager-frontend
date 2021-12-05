@@ -12,14 +12,13 @@ const graphql = {
         }
     }`,
 
-    addTask: ({ name, deadline, importance, difficulty, priorityEvaluation }) =>
+    addTask: ({ name, deadline, importance, difficulty }) =>
         `mutation {
             addUserTask(input: {
             name: "${name}"
             deadline: "${dayjs(deadline).toISOString()}",
             importance: ${importance},
-            difficulty: ${difficulty},
-            priorityEvaluation: ${priorityEvaluation},
+            difficulty: ${difficulty}
             })
             {
                 task {
@@ -55,14 +54,7 @@ const graphql = {
             }
     }`,
 
-    putTask: ({
-        id,
-        name,
-        deadline,
-        importance,
-        difficulty,
-        priorityEvaluation,
-    }) =>
+    putTask: ({ id, name, deadline, importance, difficulty }) =>
         `mutation {
             putUserTask(input: {
                 id: "${id}",
@@ -70,7 +62,6 @@ const graphql = {
                 deadline: "${dayjs(deadline).toISOString()}",
                 importance: ${importance},
                 difficulty: ${difficulty}
-                priorityEvaluation: ${priorityEvaluation},
             })
             {
                 task {
