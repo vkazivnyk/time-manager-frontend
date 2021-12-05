@@ -18,7 +18,7 @@ const graphql = {
             name: "${name}"
             deadline: "${dayjs(deadline).toISOString()}",
             importance: ${importance},
-            difficulty: ${difficulty},
+            difficulty: ${difficulty}
             })
             {
                 task {

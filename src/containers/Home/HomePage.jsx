@@ -289,7 +289,7 @@ export default class HomePage extends Component {
                     name="newTaskName"
                     onChange={this.handleTaskInputChange}
                 />
-                <div className={Style.deadlineWrapper}> Enter deadline</div>
+                <div className={Style.deadlineWrapper}>Enter deadline</div>
                 <DateTimePicker
                     getDate={this.getDate}
                     currentDate={currentDate}
