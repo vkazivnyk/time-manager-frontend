@@ -6,3 +6,9 @@
 .linkWrapper {
     text-align: center;
 }
+
+@media (max-width: 450px) {
+    .passwordContainer {
+        display: block;
+    }
+}

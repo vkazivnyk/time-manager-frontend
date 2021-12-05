@@ -75,3 +75,13 @@ input:checked ~ {
         display: block;
     }
 }
+
+.logout {
+    display: none;
+}
+
+@media (max-width: 450px) {
+    .logout {
+        display: block;
+    }
+}
