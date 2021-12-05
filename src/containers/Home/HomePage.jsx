@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import Select from 'react-select';
+import dayjs from 'dayjs';
+
 import Button from '../../components/Button/Button';
 import CalendarComponent from '../../components/CalendarComponent/CalendarComponent';
 import { Input } from '../../components/Input/Input';
@@ -11,7 +13,6 @@ import Tasks from '../Tasks/Tasks';
 import Spinner from '../../components/Spinner/Spinner';
 import Style from './HomePage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
-import dayjs from 'dayjs';
 import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 
@@ -32,7 +33,7 @@ export default class HomePage extends Component {
             newTaskDeadline: dayjs().toDate(),
             newTaskImportance: 0,
             newTaskDifficulty: 0,
-            editedTask: '',
+            editedTask: null,
         };
 
         this.difficultyOptions = [
@@ -76,10 +77,9 @@ export default class HomePage extends Component {
                 tasks: allTasks
                     .filter(t => dayjs(t.deadline) > dayjs(currentDate))
                     .sort((a, b) => {
-                        console.log();
                         return a.priorityEvaluation < b.priorityEvaluation
                             ? 1
-                            : 0;
+                            : -1;
                     }),
             });
         }
@@ -106,8 +106,7 @@ export default class HomePage extends Component {
                 }
                 console.log(res.data);
                 tasks = res.data.data.task.sort((a, b) => {
-                    console.log();
-                    return a.priorityEvaluation < b.priorityEvaluation ? 1 : 0;
+                    return a.priorityEvaluation < b.priorityEvaluation ? 1 : -1;
                 });
                 this.setState({
                     allTasks: res.data.data.task,
@@ -168,7 +167,6 @@ export default class HomePage extends Component {
                     return;
                 }
                 const { allTasks } = this.state;
-                console.log(res.data.data.addUserTask.task);
                 this.setState({
                     allTasks: [...allTasks, res.data.data.addUserTask.task],
                     isLoading: false,
@@ -219,7 +217,6 @@ export default class HomePage extends Component {
 
     handlePutTaskSubmit = () => {
         const {
-            newTaskName,
             newTaskDeadline,
             newTaskDifficulty,
             newTaskImportance,
@@ -258,24 +255,20 @@ export default class HomePage extends Component {
                 );
 
                 tasks[editedTaskIndex] = res.data.data.putUserTask.task;
+
+                const sortedTasks = tasks.sort((a, b) => {
+                    return a.priorityEvaluation < b.priorityEvaluation ? 1 : -1;
+                });
+
                 this.setState({
-                    tasks: [...tasks],
+                    tasks: sortedTasks,
                     isLoading: false,
                 });
             });
     };
 
-    handleErrors = error => {
-        console.log(error);
-    };
-
     getDate = newDate => {
-        console.log(newDate);
-        this.setState({ newTaskDeadline: newDate }, () => {
-            const { newTaskDeadline } = this.state;
-            console.log('--------------');
-            console.log(newTaskDeadline);
-        });
+        this.setState({ newTaskDeadline: newDate });
     };
 
     render() {

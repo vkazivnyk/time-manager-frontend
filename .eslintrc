@@ -34,6 +34,7 @@
             "error",
             "after",
             { "overrides": { "?": "before", ":": "before" } }
-        ]
+        ],
+        "arrow-body-style": 0
     }
 }
