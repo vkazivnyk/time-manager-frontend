@@ -31,7 +31,12 @@ class BurgerMenu extends React.Component {
 
         return (
             <div className={classes.container}>
-                <input type="checkbox" id="burger" defaultChecked={isChecked} />
+                <input
+                    type="checkbox"
+                    id="burger"
+                    checked={isChecked}
+                    readOnly
+                />
                 <label
                     htmlFor="burger"
                     className={classes.burgerIcon}

@@ -1,13 +1,10 @@
 import React from 'react';
 import { Popup } from '../Popup/Popup';
 
-const ErrorHandler = ({ errors }) => (
+const ErrorHandler = ({ errors, onDismiss }) => (
     <>
         {errors?.length ? (
-            <Popup
-                onDismiss={() => {
-                    this.setState({ errors: [] });
-                }}>
+            <Popup onDismiss={onDismiss}>
                 {errors?.map(element => (
                     <p key={element.message}>{element.message}</p>
                 ))}

@@ -393,7 +393,10 @@ export default class HomePage extends Component {
                         <Spinner />
                     </Backdrop>
                 ) : null}
-                <ErrorHandler errors={this.errors} />
+                <ErrorHandler
+                    errors={errors}
+                    onDismiss={() => this.setState({ errors: [] })}
+                />
             </>
         );
     }
