@@ -73,9 +73,14 @@ export default class HomePage extends Component {
             allTasks !== prevState.allTasks
         ) {
             this.setState({
-                tasks: allTasks.filter(
-                    t => dayjs(t.deadline) > dayjs(currentDate),
-                ),
+                tasks: allTasks
+                    .filter(t => dayjs(t.deadline) > dayjs(currentDate))
+                    .sort((a, b) => {
+                        console.log();
+                        return a.priorityEvaluation < b.priorityEvaluation
+                            ? 1
+                            : 0;
+                    }),
             });
         }
     }
