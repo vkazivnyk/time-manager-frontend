@@ -75,7 +75,7 @@ export default class AuthPage extends Component {
         return (
             <AuthBox onClick={this.onClickHandler}>
                 <Input
-                    label="Enter an username"
+                    label="Enter a username"
                     value={userName}
                     type="text"
                     id="userName"
