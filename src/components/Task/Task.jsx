@@ -58,7 +58,7 @@ const Task = props => {
         importanceValue = 'Extreme importance';
     }
 
-    const deadlineFormat = dayjs(deadline).format('DD/MM/YY');
+    const deadlineFormat = dayjs(deadline).format('DD MMM YY (HH:MM)');
 
     return (
         <div
