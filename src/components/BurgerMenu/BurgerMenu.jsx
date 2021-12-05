@@ -36,7 +36,6 @@ class BurgerMenu extends React.Component {
                     htmlFor="burger"
                     className={classes.burgerIcon}
                     onClick={() => {
-                        console.log('Hi');
                         this.setState({ isChecked: !isChecked });
                     }}>
                     <span></span>

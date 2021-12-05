@@ -2,7 +2,8 @@ const dayjs = require('dayjs');
 
 const graphql = {
     getTasks: ({ endDate }) => `query {
-        task(where: { deadline : { gte : "${dayjs(endDate).toISOString()}" }}) {
+        task(
+        where: { deadline : { gte : "${dayjs(endDate).toISOString()}" }}) {
             id
             name
             deadline

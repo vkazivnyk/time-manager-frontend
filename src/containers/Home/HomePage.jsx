@@ -73,16 +73,21 @@ export default class HomePage extends Component {
             allTasks !== prevState.allTasks
         ) {
             this.setState({
-                tasks: allTasks.filter(
-                    t => dayjs(t.deadline) > dayjs(currentDate),
-                ),
+                tasks: allTasks
+                    .filter(t => dayjs(t.deadline) > dayjs(currentDate))
+                    .sort((a, b) => {
+                        console.log();
+                        return a.priorityEvaluation < b.priorityEvaluation
+                            ? 1
+                            : 0;
+                    }),
             });
         }
     }
 
     fetchTasks() {
         const { currentDate } = this.state;
-
+        let { tasks } = this.state;
         this.setState({
             isLoading: true,
         });
@@ -100,9 +105,13 @@ export default class HomePage extends Component {
                     return;
                 }
                 console.log(res.data);
+                tasks = res.data.data.task.sort((a, b) => {
+                    console.log();
+                    return a.priorityEvaluation < b.priorityEvaluation ? 1 : 0;
+                });
                 this.setState({
                     allTasks: res.data.data.task,
-                    tasks: res.data.data.task,
+                    tasks,
                     isLoading: false,
                 });
             });
