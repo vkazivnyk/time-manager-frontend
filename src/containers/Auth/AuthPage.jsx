@@ -9,7 +9,7 @@ import { authToken } from '../../global/js/authToken';
 import Style from './AuthPage.module.scss';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import Spinner from '../../components/Spinner/Spinner';
-import { Popup } from '../../components/Popup/Popup';
+import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 
 export default class AuthPage extends Component {
     constructor(props) {
@@ -102,16 +102,7 @@ export default class AuthPage extends Component {
                         Register
                     </Link>
                 </div>
-                {errors.length ? (
-                    <Popup
-                        onDismiss={() => {
-                            this.setState({ errors: [] });
-                        }}>
-                        {errors.map(element => (
-                            <p>{element.message}</p>
-                        ))}
-                    </Popup>
-                ) : null}
+                <ErrorHandler errors={this.errors} />
                 {spinner}
             </AuthBox>
         );
