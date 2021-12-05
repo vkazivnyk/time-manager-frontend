@@ -11,6 +11,7 @@ const graphql = {
             difficulty
             priorityEvaluation
             timeEvaluation
+            deadlineMissEvaluation
         }
     }`,
 
@@ -31,6 +32,7 @@ const graphql = {
                     difficulty
                     priorityEvaluation
                     timeEvaluation
+                    deadlineMissEvaluation
                     user {
                         id
                         email
@@ -54,6 +56,7 @@ const graphql = {
                     difficulty
                     priorityEvaluation
                     timeEvaluation
+                    deadlineMissEvaluation
                 }
             }
     }`,
@@ -76,6 +79,7 @@ const graphql = {
                     difficulty
                     priorityEvaluation
                     timeEvaluation
+                    deadlineMissEvaluation
                 }
             }
     }`,
