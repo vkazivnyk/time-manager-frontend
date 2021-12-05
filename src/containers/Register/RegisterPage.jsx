@@ -134,7 +134,10 @@ export default class RegisterPage extends Component {
                             Log in
                         </Link>
                     </div>
-                    <ErrorHandler errors={this.errors} />
+                    <ErrorHandler
+                        errors={errors}
+                        onDismiss={() => this.setState({ errors: [] })}
+                    />
                 </AuthBox>
             </>
         );

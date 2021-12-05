@@ -102,7 +102,10 @@ export default class AuthPage extends Component {
                         Register
                     </Link>
                 </div>
-                <ErrorHandler errors={this.errors} />
+                <ErrorHandler
+                    errors={errors}
+                    onDismiss={() => this.setState({ errors: [] })}
+                />
                 {spinner}
             </AuthBox>
         );
