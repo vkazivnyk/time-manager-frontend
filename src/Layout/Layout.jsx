@@ -3,7 +3,6 @@ import BurgerMenu from '../components/BurgerMenu/BurgerMenu';
 import { authToken } from '../global/js/authToken';
 import { Link } from 'react-router-dom';
 import classes from './Layout.module.scss';
-import axios from 'axios';
 import { credentials } from '../global/js/credentials';
 import { Popup } from '../components/Popup/Popup';
 import Spinner from '../components/Spinner/Spinner';

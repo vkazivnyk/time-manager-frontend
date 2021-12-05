@@ -11,7 +11,14 @@ dayjs.extend(relativeTime);
 
 const Task = props => {
     const { task, onPutTask, onDeleteTask } = props;
-    const { name, deadline, importance, difficulty, priorityEvaluation } = task;
+    const {
+        name,
+        deadline,
+        importance,
+        difficulty,
+        priorityEvaluation,
+        timeEvaluation,
+    } = task;
 
     const expiredClass = dayjs(task.deadline) < dayjs() ? Style.Expired : null;
 
@@ -58,9 +65,6 @@ const Task = props => {
             className={`${Style.TaskWrapper} ${expiredClass}`}
             data-importance={importance}
             data-difficulty={difficulty}>
-            <div className={Style.PriorityEvaluationWrapper}>
-                Priority: {priorityEvaluation.toFixed(2)}
-            </div>
             <h2 className={Style.TaskName}>{name}</h2>
             <div className={Style.TaskItemsContainer}>
                 <div className={Style.TaskInfoContainer}>
@@ -79,6 +83,20 @@ const Task = props => {
                     <div className={Style.DeadlineWrapper}>
                         <span>Deadline:</span>
                         <span className={Style.Deadline}>{deadlineFormat}</span>
+                    </div>
+                </div>
+                <div className={Style.Stats}>
+                    <div className={Style.PriorityEvaluationWrapper}>
+                        Priority:
+                        <span className={Style.Priority}>
+                            {priorityEvaluation.toFixed(2)}
+                        </span>
+                    </div>
+                    <div className={Style.AvgTimeEvaluationWrapper}>
+                        Time est.:
+                        <span className={Style.AvgTime}>
+                            {timeEvaluation.toFixed(2)}
+                        </span>
                     </div>
                 </div>
                 <div className={Style.ButtonsContainer}>
