@@ -18,6 +18,7 @@ const Task = props => {
         difficulty,
         priorityEvaluation,
         timeEvaluation,
+        deadlineMissEvaluation,
     } = task;
 
     const expiredClass = dayjs(task.deadline) < dayjs() ? Style.Expired : null;
@@ -96,6 +97,12 @@ const Task = props => {
                         Time est.:
                         <span className={Style.AvgTime}>
                             {timeEvaluation.toFixed(2)}
+                        </span>
+                    </div>
+                    <div className={Style.DeadlineMissEvaluationWrapper}>
+                        Deadline miss est.:
+                        <span className={Style.DeadlineMiss}>
+                            {deadlineMissEvaluation}%
                         </span>
                     </div>
                 </div>

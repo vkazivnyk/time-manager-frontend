@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Style from './RegisterPage.module.scss';
 import Spinner from '../../components/Spinner/Spinner';
 import Backdrop from '../../components/Backdrop/Backdrop';
-import { Popup } from '../../components/Popup/Popup';
 import axiosRESTInstance from '../../global/js/axiosRESTInstance';
 import { credentials } from '../../global/js/credentials';
 import { authToken } from '../../global/js/authToken';

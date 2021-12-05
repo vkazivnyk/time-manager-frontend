@@ -53,37 +53,6 @@
         justify-content: space-between;
     }
 
-    .PriorityEvaluationWrapper {
-        color: $main-text-color;
-        font-size: 1.3rem;
-        flex: 1 1;
-
-        .Priority {
-            display: inline-block;
-            padding: 0.3rem;
-            margin: 0 0.5rem;
-            border-radius: 5px;
-            color: $priority-color;
-            background-color: $priority-bg-color;
-        }
-    }
-
-    .AvgTimeEvaluationWrapper {
-        color: $main-text-color;
-        font-size: 1.3rem;
-        flex: 1 1;
-        text-align: right;
-
-        .AvgTime {
-            display: inline-block;
-            padding: 0.3rem;
-            margin: 0 0.5rem;
-            border-radius: 5px;
-            color: $avg-time-color;
-            background-color: $avg-time-bg-color;
-        }
-    }
-
     button {
         position: relative;
         width: 4rem;
@@ -260,21 +229,53 @@
     }
 }
 
+.PriorityEvaluationWrapper,
+.AvgTimeEvaluationWrapper,
+.DeadlineMissEvaluationWrapper {
+    color: $main-text-color;
+    font-size: 1.1rem;
+    flex: 1 1;
+
+    .Priority,
+    .AvgTime,
+    .DeadlineMiss {
+        display: inline-block;
+        padding: 0.3rem;
+        margin: 0 0.5rem;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .Priority {
+        color: $priority-color;
+        background-color: $priority-bg-color;
+    }
+
+    .AvgTime {
+        color: $avg-time-color;
+        background-color: $avg-time-bg-color;
+    }
+
+    .DeadlineMiss {
+        color: $deadline-miss-color;
+        background-color: $deadline-miss-bg-color;
+    }
+}
+
 .Stats {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     width: 100%;
-    padding-top: 1rem;
+    background-color: $task-color-dark;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 5px;
 
-    @media screen and (max-width: 25rem) {
-        flex-direction: column;
-
-        .PriorityEvaluationWrapper,
-        .AvgTimeEvaluationWrapper {
-            display: flex;
-            padding: 0.5rem 0;
-            justify-content: space-between;
-        }
+    .PriorityEvaluationWrapper,
+    .AvgTimeEvaluationWrapper,
+    .DeadlineMissEvaluationWrapper {
+        display: flex;
+        padding: 0.5rem 0;
+        justify-content: space-between;
     }
 }
 
