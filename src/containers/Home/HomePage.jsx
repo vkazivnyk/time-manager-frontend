@@ -257,7 +257,7 @@ export default class HomePage extends Component {
                     t => t.id === newTask.id,
                 );
 
-                tasks[editedTaskIndex] = newTask;
+                tasks[editedTaskIndex] = res.data.data.putUserTask.task;
                 this.setState({
                     tasks: [...tasks],
                     isLoading: false,
