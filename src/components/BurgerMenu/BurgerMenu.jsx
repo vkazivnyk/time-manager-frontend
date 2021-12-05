@@ -11,23 +11,51 @@ class BurgerMenu extends React.Component {
     }
     render() {
         const { isChecked } = this.state;
+        const { logoutReguest } = this.props;
 
         const isAuthenticated = authToken.valid();
 
+        const changeCheckbox = () => {
+            this.setState({ isChecked: !isChecked });
+        };
+
         const links = isAuthenticated ? (
             <li>
-                <Link to="/home">Home</Link>
+                <Link to="/home" onClick={changeCheckbox}>
+                    Home
+                </Link>
             </li>
         ) : (
             <>
                 <li>
-                    <Link to="/register">Sign up</Link>
+                    <Link to="/register" onClick={changeCheckbox}>
+                        Sign up
+                    </Link>
                 </li>
                 <li>
-                    <Link to="/auth">Sign in</Link>
+                    <Link to="/auth" onClick={changeCheckbox}>
+                        Sign in
+                    </Link>
                 </li>
             </>
         );
+
+        const logout = isAuthenticated ? (
+            <li className={classes.logout}>
+                <Link
+                    onClick={() => {
+                        logoutReguest();
+                        changeCheckbox();
+                    }}
+                    to="/auth"
+                    style={{
+                        textDecoration: 'none',
+                        color: '#dddddd',
+                    }}>
+                    Log out
+                </Link>
+            </li>
+        ) : null;
 
         return (
             <div className={classes.container}>
@@ -40,22 +68,18 @@ class BurgerMenu extends React.Component {
                 <label
                     htmlFor="burger"
                     className={classes.burgerIcon}
-                    onClick={() => {
-                        this.setState({ isChecked: !isChecked });
-                    }}>
+                    onClick={changeCheckbox}>
                     <span></span>
                     <span></span>
                     <span></span>
                 </label>
                 <nav>
-                    <ul>{links}</ul>
+                    <ul>
+                        {links} {logout}
+                    </ul>
                 </nav>
                 <div className={classes.backDropWrapper}>
-                    <Backdrop
-                        onClick={() => {
-                            this.setState({ isChecked: !isChecked });
-                        }}
-                    />
+                    <Backdrop onClick={changeCheckbox} />
                 </div>
             </div>
         );
