@@ -19,7 +19,7 @@ jobs:
             - name: Set up Node.js version
               uses: actions/setup-node@v1
               with:
-                  node-version: '16.x'
+                  node-version: '14.x'
 
             - name: npm install, build, and test
               run: |
@@ -51,5 +51,5 @@ jobs:
               with:
                   app-name: 'time-manager'
                   slot-name: 'Production'
-                  publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B9586C25AB8E403088221DB4E0CF47F0 }}
+                  publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B0CE0FD6C4194DA38259FEC78B9C5591 }}
                   package: .
